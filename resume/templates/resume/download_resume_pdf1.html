@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ resume.full_name }} - Resume</title>
+<style>
+  /* ---- PAGE: A4 with comfortable margins ---- */
+  @page {
+    size: A4;
+    /* top right bottom left */
+    margin: 20mm 20mm 20mm 20mm;
+  }
+
+  /* Reset */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    color: #2f1e13;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*
+    Printable width calculation:
+    A4 width = 210mm
+    left+right page margins = 20mm + 20mm = 40mm
+    printable area width = 210 - 40 = 170mm
+    We set wrapper to a little less so it's comfortably centered (160mm).
+  */
+  /* ---- CENTERING CONTAINER ---- */
+  body > .page {
+    /* Make this element fill the page's content area */
+    min-height: calc(297mm - 40mm); /* A4 height 297mm minus top+bottom margins */
+    display: flex;
+    align-items: center;           /* vertical center */
+    justify-content: center;       /* horizontal center */
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* The visual resume card centered inside the printable box */
+  .wrapper {
+    width: 160mm;               /* narrower than printable area (170mm) */
+    max-width: 100%;
+    background: #fff;
+    box-shadow: none;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  /* Layout table fills wrapper */
+  table.layout {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  /* Panel paddings inside the wrapper (keeps text away from edges) */
+  td.left {
+    width: 34%;
+    background: #5a3e2b;
+    color: #fff;
+    vertical-align: top;
+    padding: 10mm;
+    box-sizing: border-box;
+  }
+
+  td.right {
+    width: 66%;
+    vertical-align: top;
+    padding: 10mm;
+    color: #2f1e13;
+    box-sizing: border-box;
+  }
+
+  /* Typography */
+  h1 { font-size: 26px; margin: 0 0 8px 0; line-height:1.15; }
+  h3 { font-size: 14px; font-weight: normal; margin: 0 0 12px 0; }
+  h2 {
+    font-size: 16px;
+    color: #5a3e2b;
+    border-bottom: 2px solid #d2b48c;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+  }
+  p, li, .exp-box, .edu-box { margin: 6px 0; font-size: 13px; line-height:1.25; }
+  ul { margin: 6px 0 12px 18px; padding: 0; }
+  li { margin-bottom: 4px; }
+
+  /* Visual debug border while editing: uncomment if you want to see the wrapper edges in browser.
+     (Remove or comment out for final PDF.) */
+  /* .wrapper { border: 1px solid #e6e6e6; } */
+
+  /* Print safeguard */
+  @media print {
+    body > .page { min-height: calc(297mm - 40mm); }
+    td.left, td.right { padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+ <div class="page">
+  <div class="wrapper" role="main">
+    <table class="layout" role="presentation">
+      <tr>
+        <!-- LEFT PANEL -->
+        <td class="left">
+          <h1>{{ resume.full_name }}</h1>
+          {% if resume.job_title %}<h3>{{ resume.job_title }}</h3>{% endif %}
+          <p><strong>Email:</strong> {{ resume.email }}</p>
+          <p><strong>Phone:</strong> {{ resume.phone }}</p>
+          <p><strong>Address:</strong> {{ resume.address }}</p>
+        </td>
+
+        <!-- RIGHT PANEL -->
+        <td class="right">
+          <h2>Skills</h2>
+          {% if skills_list %}
+            <ul>{% for skill in skills_list %}<li>{{ skill }}</li>{% endfor %}</ul>
+          {% else %}<p>No skills added</p>{% endif %}
+
+          <h2>Languages</h2>
+          {% if languages_list %}
+            <ul>{% for lang in languages_list %}<li>{{ lang }}</li>{% endfor %}</ul>
+          {% else %}<p>No languages added</p>{% endif %}
+
+          <h2>References</h2>
+          {% if references_list %}
+            <ul>{% for ref in references_list %}<li>{{ ref }}</li>{% endfor %}</ul>
+          {% else %}<p>No references added</p>{% endif %}
+
+          <h2>Profile Summary</h2>
+          {% if resume.profile_summary %}
+            <p>{{ resume.profile_summary|linebreaksbr }}</p>
+          {% else %}
+            <p>No profile summary added</p>
+          {% endif %}
+
+          <h2>Work Experience</h2>
+          {% if experience_list %}
+            <ul>{% for exp in experience_list %}<li>{{ exp }}</li>{% endfor %}</ul>
+          {% else %}<p>No work experience added</p>{% endif %}
+
+          <h2>Education</h2>
+          {% if education_list %}
+            <ul>{% for edu in education_list %}<li>{{ edu }}</li>{% endfor %}</ul>
+          {% else %}<p>No education details added</p>{% endif %}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+ 
+</body>
+</html>

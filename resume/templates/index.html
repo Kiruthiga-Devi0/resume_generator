@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAKE YOUR RESUME</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #beb6c5; color: hsl(0, 0%, 100%); height: 100vh; display: flex; flex-direction: column; }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: rgba(154, 130, 155, 0.9);
+    }
+    header a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    header a:hover { text-decoration: underline; }
+
+    /* Center Content */
+    .center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 20px;
+      flex-wrap: wrap;
+       animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .center-content .logo img {
+      height: 150px;
+      max-width: 90%;
+      object-fit: contain;
+    }
+    .center-content h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 1024px) {
+      header { padding: 20px 30px; }
+      .center-content h1 { font-size: 42px; }
+      .center-content .logo img { height: 120px; }
+    }
+
+    @media (max-width: 768px) {
+      .center-content { flex-direction: column; gap: 15px; }
+      .center-content h1 { font-size: 36px; }
+      .center-content .logo img { height: 100px; }
+    }
+
+    @media (max-width: 480px) {
+      .center-content h1 { font-size: 28px; }
+      .center-content .logo img { height: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="{% url 'front_page' %}">Home</a>
+  </header>
+
+  <!-- Center Content -->
+  <div class="center-content">
+    <div class="logo">
+      <img src="{% static 'resume/logoo.png' %}" alt="Logo">
+    </div>
+    <h1>MAKE YOUR RESUME</h1>
+  </div>
+
+</body>
+</html>

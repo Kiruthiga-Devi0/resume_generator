@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help & Support | Resume Generator</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #beb6c5;
+  color: #333;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  background: #664091;
+  color: white;
+  text-align: center;
+  padding: 1.5rem 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+  font-size: clamp(1.3rem, 4vw, 1.8rem); /* fluid scaling */
+  margin-bottom: 0.3rem;
+}
+header p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  opacity: 0.9;
+}
+
+main {
+  max-width: 1100px;
+  margin: 2rem auto;
+  background: #cabdce;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: #70559c;
+  margin-top: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
+}
+
+p {
+  margin: 0.6rem 0;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+ul {
+  margin-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.faq {
+  background: #af9ec4;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+.faq:hover {
+  background: #e7edff;
+}
+.faq h3 {
+  color: #534391;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+}
+.faq p {
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: #555;
+  margin-top: 0.3rem;
+}
+
+footer {
+  text-align: center;
+  background: #664091;
+  color: white;
+  padding: 1rem 0;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  margin-top: 2rem;
+}
+
+/* ====== RESPONSIVE BREAKPOINTS ====== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  main {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+  ul {
+    margin-left: 1rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  header {
+    padding: 1rem;
+  }
+  main {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .faq {
+    padding: 0.8rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Help & Support</h1>
+    <p>Find quick answers and contact support if needed</p>
+  </header>
+  <main>
+    <h2>Getting Started</h2>
+    <p>Welcome to the AI Resume Generator! This guide helps you navigate and use our features effectively.</p>
+    <ul>
+      <li>Sign up or log in to your account.</li>
+      <li>Fill in your personal, educational, and professional details.</li>
+      <li>Choose your preferred resume template.</li>
+      <li>Click <strong>Generate Resume</strong> to preview and download your professional resume.</li>
+    </ul>
+    <h2>Common FAQs</h2>
+    <div class="faq">
+      <h3>1. How do I reset my password?</h3>
+      <p>Go to the login page → click “Forgot Password” → follow the email instructions to set a new password.</p>
+    </div>
+    <div class="faq">
+      <h3>2. Can I edit my resume after generating it?</h3>
+      <p>Yes, log in and click “Edit Resume” from your dashboard to make updates.</p>
+    </div>
+    <div class="faq">
+      <h3>3. How can I contact support?</h3>
+      <p>You can email us at <a href="mailto:support@resumeai.com">support@resumeai.com</a> for technical or account help.</p>
+    </div>
+    <h2>Tips for Better Resumes</h2>
+    <ul>
+      <li>Use short, action-driven bullet points.</li>
+      <li>Keep your resume under 2 pages.</li>
+      <li>Highlight measurable achievements.</li>
+      <li>Choose a clean and readable template.</li>
+    </ul>
+    <h2>Still Need Help?</h2>
+    <p>If your issue isn’t listed above, contact our team directly via the <strong>Contact Us</strong> section or email support.</p>
+  </main>
+  <footer>
+    &copy; 2025 AI Resume Generator | All Rights Reserved
+  </footer>
+</body>
+</html>

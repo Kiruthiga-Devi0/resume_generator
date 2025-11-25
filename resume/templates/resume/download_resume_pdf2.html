@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ resume.full_name }} - Resume</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resume-container {
+    width: 800px;
+    background: #fff;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    display: flex;
+    margin: 20px auto;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* LEFT PANEL */
+  .left {
+    width: 35%;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 35px 20px;
+  }
+
+  .profile-pic {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 4px solid #fdd835;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+
+  .name {
+    color: #fdd835;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 0 5px;
+  }
+
+  .job {
+    font-size: 15px;
+    color: #ccc;
+    margin-bottom: 25px;
+  }
+
+  .contact h3 {
+    color: #fdd835;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .contact p {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* RIGHT PANEL */
+  .right {
+    width: 65%;
+    padding: 35px 30px;
+    color: #222;
+  }
+
+  .section-title {
+    color: #000;
+    font-weight: 700;
+    border-bottom: 2px solid #fdd835;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-top: 25px;
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 5px 0 10px 0;
+    color: #333;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin: 8px 0 15px 25px;
+    padding: 0;
+  }
+
+  li {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+    color: #444;
+  }
+  
+</style>
+</head>
+<body>
+
+  <div class="resume-container">
+    <!-- LEFT -->
+    <div class="left">
+      {% if resume.profile_photo %}
+        <img src="{{ resume.profile_photo.url }}" alt="Profile Photo" class="profile-pic">
+      {% endif %}
+      <div class="name">{{ resume.full_name }}</div>
+      <div class="job">{{ resume.job_title }}</div>
+
+      <div class="contact">
+        <h3>Contact</h3>
+        <p>{{ resume.phone }}<br>{{ resume.email }}</p>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <h3 class="section-title">About Me</h3>
+      <p>{{ resume.about_me }}</p>
+
+      <h3 class="section-title">Experience</h3>
+      {% if experience_list %}
+        <ul>
+          {% for exp in experience_list %}
+            <li>{{ exp }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No experience added</p>
+      {% endif %}
+
+      <h3 class="section-title">Skills</h3>
+      {% if skills_list %}
+        <ul>
+          {% for skill in skills_list %}
+            <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No skills added</p>
+      {% endif %}
+
+      <h3 class="section-title">Education</h3>
+      {% if education_list %}
+        <ul>
+          {% for edu in education_list %}
+            <li>{{ edu }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No education details added</p>
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>

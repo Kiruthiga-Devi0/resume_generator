@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ resume.full_name }} - Resume</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    color: #222;
+    margin: 0;
+    padding: 0;
+  }
+  table.resume-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background: #f7f3ea;
+    border-radius: 8px;
+    page-break-inside: avoid;
+  }
+  td.left-panel {
+    width: 35%;
+    background: #e0d7c6;
+    vertical-align: top;
+    padding: 40px 25px;
+    text-align: center; /* ✅ fixed alignment */
+  }
+  td.right-panel {
+    width: 65%;
+    background: #f9f7f2;
+    vertical-align: top;
+    padding: 40px 45px;
+  }
+  .profile-pic {
+    width: 85%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  }
+  .name { font-size: 26px; font-weight: 600; margin-bottom: 5px; text-align: center; }
+  .job-title { font-size: 14px; color: #444; margin-bottom: 15px; text-align: center; }
+  hr { border: none; border-top: 1px solid #bbb; width: 80%; margin: 15px auto; }
+  .contact-info { font-size: 14px; color: #333; line-height: 1.6; }
+  .contact-info p { margin: 5px 0; }
+  .contact-info b { color: #000; }
+  .section { margin-bottom: 20px; }
+  .section h2 {
+    font-size: 16px; color: #a87a4a; text-transform: uppercase;
+    margin-bottom: 6px; border-bottom: 1px solid #d8cfc2; padding-bottom: 3px;
+  }
+  ul { list-style-type: disc; margin: 8px 0 8px 25px; padding: 0; }
+  ul li { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 5px; }
+  .skills span {
+    background: #d9cdb7; color: #222; padding: 5px 10px;
+    border-radius: 15px; margin: 3px 4px 3px 0; display: inline-block; font-size: 13px;
+  }
+  @page { size: A4; margin: 1.2cm; }
+  @media print {
+    body { background: #fff !important; }
+    .resume-wrapper { margin: 0 !important; box-shadow: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<table class="resume-wrapper">
+  <tr>
+    <td class="left-panel">
+      {% if resume.profile_image %}
+        <!-- ✅ use relative URL, works with base_url in view -->
+        <img src="{{ resume.profile_image.url }}" class="profile-pic" alt="Profile Picture">
+      {% endif %}
+      <div class="name">{{ resume.full_name }}</div>
+      <div class="job-title">{{ resume.job_title }}</div>
+      <hr>
+      <div class="contact-info">
+        <p><b>Phone:</b> {{ resume.phone }}</p>
+        <p><b>Email:</b> {{ resume.email }}</p>
+        <p><b>Address:</b> {{ resume.address }}</p>
+      </div>
+    </td>
+
+    <td class="right-panel">
+      <div class="section">
+        <h2>About</h2>
+        <p>{{ resume.about }}</p>
+      </div>
+
+      <div class="section">
+        <h2>Skills</h2>
+        <div class="skills">
+          {% if skills_list %}
+            {% for skill in skills_list %}
+              <span>{{ skill }}</span>
+            {% endfor %}
+          {% else %}
+            <p>No skills added</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Experience</h2>
+        <ul>
+          {% if experience_list %}
+            {% for exp in experience_list %}
+              <li>{{ exp }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No experience added</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Education</h2>
+        <ul>
+          {% if education_list %}
+            {% for edu in education_list %}
+              <li>{{ edu }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No education details added</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Languages</h2>
+        <ul>
+          {% if languages_list %}
+            {% for lang in languages_list %}
+              <li>{{ lang }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No languages added</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>References</h2>
+        <ul>
+          {% if references_list %}
+            {% for ref in references_list %}
+              <li>{{ ref }}</li>
+            {% endfor %}
+          {% else %}
+            <li>No references added</li>
+          {% endif %}
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

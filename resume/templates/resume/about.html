@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | MAKE YOUR RESUME</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #beb6c5;
+  color: #000;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.about-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.about-container img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+.app-name {
+  font-size: clamp(1.4rem, 4vw, 1.8rem); /* fluid scaling */
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.version {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  opacity: 0.85;
+  margin-bottom: 25px;
+}
+
+.description {
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+footer {
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  opacity: 0.8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .about-container {
+    padding: 35px 25px;
+    max-width: 90%;
+  }
+  .about-container img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 30px 20px;
+  }
+  .about-container img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .about-container {
+    padding: 25px 15px;
+    border-radius: 15px;
+  }
+  .about-container img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="about-container">
+    <!-- Replace the src with your logo path -->
+    <img src="{% static 'resume/logoo.png' %}" alt="App Logo">
+    <div class="app-name">MAKE YOUR RESUME</div>
+    <div class="version">Version {{ app_version }}</div>
+
+
+    <div class="description">
+      MAKE YOUR RESUME is your smart AI-powered assistant to create 
+      professional, visually appealing resumes in just a few clicks. 
+      Designed to save your time and boost your career.
+    </div>
+
+    <footer>
+      &copy; 2025 MAKE YOUR RESUME. All Rights Reserved.
+    </footer>
+  </div>
+</body>
+</html>

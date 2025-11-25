@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | MAKE YOUR RESUME</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #beb6c5;
+      color: #333;
+      padding: 20px;
+    }
+    .login-container {
+      background: #fff;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #766e79;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px 40px 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .login-container input:focus {
+      outline: none;
+      border-color: #5b4d5f;
+      box-shadow: 0 0 5px rgba(91, 77, 95, 0.3);
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #444;
+      font-size: 18px;
+      user-select: none;
+      opacity: 0.7;
+      transition: 0.2s;
+    }
+    .toggle-password:hover {
+      opacity: 1;
+    }
+    .login-container button {
+      padding: 12px 15px;
+      background-color: #77698f;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-container button:hover {
+      background-color: #360834;
+    }
+    .login-container .links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .login-container .links a {
+      color: #584d69;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .login-container .links a:hover {
+      text-decoration: underline;
+    }
+   /* Base styles remain the same */
+
+/* Tablets (portrait & landscape) */
+@media (max-width: 992px) {
+  body {
+    padding: 15px;
+  }
+  .login-container {
+    max-width: 500px;
+    padding: 35px 25px;
+  }
+  .login-container h2 {
+    font-size: 26px;
+  }
+  .login-container input, 
+  .login-container button {
+    font-size: 15px;
+    padding: 12px;
+  }
+  .login-container .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 768px) {
+  .login-container {
+    max-width: 100%;
+    padding: 30px 20px;
+  }
+  .login-container h2 {
+    font-size: 24px;
+  }
+  .login-container input, 
+  .login-container button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .login-container {
+    padding: 25px 15px;
+    border-radius: 10px;
+  }
+  .login-container h2 {
+    font-size: 22px;
+  }
+  .login-container input, 
+  .login-container button {
+    font-size: 13px;
+    padding: 8px;
+  }
+  .toggle-password {
+    font-size: 16px;
+    right: 8px;
+  }
+  .login-container .links {
+    flex-direction: column;
+    align-items: center;
+    font-size: 13px;
+  }
+}
+
+    
+       
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to Your Account</h2>
+     {% if messages %}
+    {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <div class="input-group">
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+      </div>
+      <button type="submit">Log In</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'signup' %}">Sign Up</a>
+     <a href="{% url 'password_reset' %}">Forgot Password?</a>
+
+
+    </div>
+  </div>
+  <script>
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      if (field.type === "password") {
+        field.type = "text";
+        icon.textContent = "👁️‍🗨️";
+      } else {
+        field.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+  </script>
+</body>
+</html>

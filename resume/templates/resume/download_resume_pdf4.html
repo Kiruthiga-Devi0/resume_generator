@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.full_name }} - Resume PDF</title>
+  <style>
+    /* PDF page setup */
+    @page {
+      size: A4;
+      margin: 1.2cm;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #fff;
+    }
+
+    .resume-container {
+      width: 85%;
+      max-width: 750px;
+      background: #fff;
+      padding: 40px 55px;
+      color: #111;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 25px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: #444;
+      margin: 3px 0;
+      font-size: 13px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section h2 {
+      font-size: 15px;
+      color: #fff;
+      background: #b8c2c0;
+      padding: 6px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      list-style-type: disc;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    li {
+      margin-bottom: 4px;
+      color: #222;
+    }
+
+    p {
+      font-size: 13.5px;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .resume-container, .section {
+      page-break-inside: avoid;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>{{ resume.full_name }}</h1>
+      <p>{{ resume.job_title }}</p>
+      <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
+    </div>
+
+    <!-- ✅ Profile Summary -->
+    <div class="section">
+      <h2>Profile Summary</h2>
+      {% if profile_summary %}
+        <p>{{ profile_summary }}</p>
+      {% else %}
+        <p>No profile summary added</p>
+      {% endif %}
+    </div>
+
+<!-- Technical Skills -->
+{% if technical_skills %}
+<div class="section">
+  <h2>Technical Skills</h2>
+  <ul>
+    {% for skill in technical_skills %}
+      <li>{{ skill }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<!-- Projects -->
+{% if projects %}
+<div class="section">
+  <h2>Projects</h2>
+  <ul>
+    {% for project in projects %}
+      <li>{{ project }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if education_list %}
+<div class="section">
+  <h2>Education</h2>
+  <ul>
+    {% for edu in education_list %}
+      <li>{{ edu }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if experience_list %}
+<div class="section">
+  <h2>Work Experience</h2>
+  <ul>
+    {% for exp in experience_list %}
+      <li>{{ exp }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if achievements_list %}
+<div class="section">
+  <h2>Awards & Achievements</h2>
+  <ul>
+    {% for ach in achievements_list %}
+      <li>{{ ach }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+<div class="section">
+  <h2>Awards & Achievements</h2>
+  <p>No achievements added</p>
+</div>
+{% endif %}
+
+
+
+  </div>
+</body>
+</html>

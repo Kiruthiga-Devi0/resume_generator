@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.full_name }} - Resume</title>
+  <style>
+    @page {
+  size: A4;
+  margin: 25mm;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-container {
+  width: 750px;
+  background: #fff;
+  padding: 40px 60px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #111;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #666;
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section h2 {
+  font-size: 16px;
+  color: #fff;
+  background: #b8c2c0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.section ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.section li {
+  margin-bottom: 4px;
+}
+
+.download-btn {
+  text-align: center;
+  margin-top: 35px;
+}
+
+.download-btn a {
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.download-btn a:hover {
+  background: #555;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  .resume-container {
+    width: 90%;
+    padding: 30px 40px;
+  }
+  .header h1 {
+    font-size: 24px;
+  }
+  .section h2 {
+    font-size: 15px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 0;
+  }
+  .resume-container {
+    width: 95%;
+    padding: 25px;
+  }
+  .header h1 {
+    font-size: 22px;
+  }
+  .header p {
+    font-size: 13px;
+  }
+  .section h2 {
+    font-size: 14px;
+  }
+  .section ul {
+    font-size: 13px;
+  }
+  .download-btn a {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px 0;
+  }
+  .resume-container {
+    width: 100%;
+    padding: 15px;
+    border-radius: 0;
+    box-shadow: none; /* simplify on mobile */
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .header p {
+    font-size: 12px;
+  }
+  .section h2 {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+  .section ul {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .download-btn a {
+    font-size: 13px;
+    padding: 7px 15px;
+  }
+}
+  </style>
+</head>
+<body>
+  <div style="width: 750px; position: relative; margin: 0 auto;">
+    <!-- Download Button Top-Right -->
+    <div style="position: absolute; top: 0; right: 0;">
+      <a href="{% url 'download_resume_pdf4' resume.id %}" 
+         style="background: #333; color: #fff; text-decoration: none; padding: 8px 18px; border-radius: 5px; transition: background 0.3s ease;">
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Resume Container -->
+    <div class="resume-container" style="margin-top: 40px;">
+      <!-- Header -->
+      <div class="header">
+        <h1>{{ resume.full_name }}</h1>
+        <p>{{ resume.job_title }}</p>
+        <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
+      </div>
+
+      <!-- ✅ Profile Summary -->
+      <div class="section">
+        <h2>Profile Summary</h2>
+        {% if profile_summary %}
+          <p>{{ profile_summary }}</p>
+        {% else %}
+          <p>No profile summary added</p>
+        {% endif %}
+      </div>
+
+      <!-- Technical Skills -->
+      {% if technical_skills %}
+      <div class="section">
+        <h2>Technical Skills</h2>
+        <ul>
+          {% for skill in technical_skills %}
+            <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <!-- Projects -->
+      {% if projects %}
+      <div class="section">
+        <h2>Projects</h2>
+        <ul>
+          {% for proj in projects %}
+            <li>{{ proj }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <!-- Experience -->
+      <div class="section">
+        <h2>Experience</h2>
+        {% if experience_list %}
+  <ul>
+    {% for exp in experience_list %}
+      <li>{{ exp }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No experience added</p>
+{% endif %}
+
+
+      <!-- Education -->
+     
+      <div class="section">
+        <h2>Education</h2>
+        {% if education_list %}
+  <ul>
+    {% for edu in education_list %}
+      <li>{{ edu }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No education added</p>
+{% endif %}
+
+      <!-- ✅ Awards & Achievements -->
+      <div class="section">
+        <h2>Awards & Achievements</h2>
+        {% if achievements_list %}
+  <ul>
+    {% for ach in achievements_list %}
+      <li>{{ ach }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No achievements added</p>
+{% endif %}
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

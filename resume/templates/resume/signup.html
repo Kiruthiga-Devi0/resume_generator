@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup | MAKE YOUR RESUME</title>
+  <style>
+  /* Base styles */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #beb6c5;
+  color: #333;
+  padding: 20px;
+}
+
+.signup-container {
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  padding: 40px 30px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* Fluid heading scaling */
+h2 {
+  margin-bottom: 25px;
+  color: #4c4155;
+  font-size: clamp(22px, 4vw, 28px); /* scales smoothly */
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: clamp(14px, 2vw, 15px);
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3f2d41;
+  box-shadow: 0 0 5px rgba(10,102,194,0.5);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #444;
+  font-size: 18px;
+  user-select: none;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+.toggle-password:hover { opacity: 1; }
+
+button {
+  padding: 12px 15px;
+  background-color: #796f96;
+  color: #fff;
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background-color: #4e245f; }
+
+.links {
+  margin-top: 15px;
+  font-size: clamp(13px, 2vw, 14px);
+}
+.links a {
+  color: #251f3f;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.links a:hover { text-decoration: underline; }
+
+/* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .signup-container {
+    max-width: 90%;
+    padding: 35px 25px;
+  }
+  form { gap: 15px; }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 768px) {
+  .signup-container {
+    max-width: 100%;
+    padding: 30px 20px;
+  }
+  input, button { padding: 10px; }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  .signup-container {
+    padding: 25px 15px;
+    border-radius: 10px;
+  }
+  .toggle-password { font-size: 16px; right: 8px; }
+  .links { text-align: center; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Create Your Account</h2>
+    <form method="POST" action="{% url 'signup' %}">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <div class="input-group">
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+      </div>
+      <div class="input-group">
+        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+        <span class="toggle-password" onclick="togglePassword('confirm_password', this)">👁️</span>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'login' %}">Already have an account? Log In</a>
+    </div>
+  </div>
+  <script>
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      if (field.type === "password") {
+        field.type = "text";
+        icon.textContent = "👁️‍🗨️";
+      } else {
+        field.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+  </script>
+</body>
+</html>

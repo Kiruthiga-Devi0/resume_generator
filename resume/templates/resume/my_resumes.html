@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Resumes | MAKE YOUR RESUME</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ebe8ef;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+    }
+    h2 { text-align: center; color: #603472; margin-bottom: 30px; }
+    .resume-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto 50px auto;
+    }
+    .resume-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .resume-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+    }
+    .resume-card h3 {
+      color: #603472;
+      margin-bottom: 8px;
+    }
+    .resume-card p {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .resume-card a {
+      display: inline-block;
+      margin: 5px 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #fff;
+      background: #5b297c;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+    .resume-card a:hover {
+      background: #3e1d5a;
+    }
+  </style>
+</head>
+<body>
+
+<h2>My Resumes</h2>
+
+{% if all_resumes %}
+  {% for template_name, resumes in all_resumes.items %}
+    <h3 style="text-align:center; color:#4a2c6f;">{{ template_name }}</h3>
+    <div class="resume-grid">
+      {% for resume in resumes %}
+        <div class="resume-card">
+          <h3>{{ resume.full_name }}</h3>
+          {% if resume.job_title %}<p>{{ resume.job_title }}</p>{% endif %}
+          {% if resume.email %}<p>{{ resume.email }}</p>{% endif %}
+          {% if resume.phone %}<p>{{ resume.phone }}</p>{% endif %}
+          <a href="{% url 'resume_display5' resume.id %}">View</a>
+          <a href="{% url 'download_resume_pdf5' resume.id %}">Download</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+{% else %}
+  <p style="text-align:center; margin-top:50px;">You haven't created any resumes yet.</p>
+{% endif %}
+
+</body>
+</html>

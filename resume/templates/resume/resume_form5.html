@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Resume</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      margin: 0;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      width: 100%;              /* ✅ fluid width */
+      max-width: 750px;         /* ✅ cap on large screens */
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-sizing: border-box;   /* ✅ include padding in width */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem); /* ✅ fluid scaling */
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 5px;
+      margin-top: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    /* ===== RESPONSIVE BREAKPOINTS ===== */
+
+    /* Large tablets / small laptops */
+    @media (max-width: 1024px) {
+      body {
+        padding: 20px;
+      }
+      form {
+        max-width: 90%;
+        padding: 25px;
+      }
+    }
+
+    /* Tablets */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      form {
+        max-width: 100%;
+        padding: 20px;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+      input, textarea, button {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* Mobile phones */
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+      }
+      form {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 15px;
+        border-radius: 0; /* ✅ full-bleed look */
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      input, textarea, button {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+ <form method="POST" action="{% url 'resume_form5' %}">
+  {% csrf_token %}
+  <h2>Create Resume</h2>
+
+  <label>Full Name</label>
+  <input name="full_name" required>
+
+  <label>Job Title</label>
+  <input name="job_title">
+
+  <label>Address</label>
+  <input name="address">
+
+  <label>Email</label>
+  <input name="email">
+
+  <label>Website</label>
+  <input name="website">
+
+  <label>Phone</label>
+  <input name="phone">
+
+  <label>Profile Summary</label>
+  <textarea name="profile_summary"></textarea>
+
+  <label>Professional Experience</label>
+  <textarea name="work_experience"></textarea>
+
+  <label>Education</label>
+  <textarea name="education"></textarea>
+
+  <label>Professional Qualifications</label>
+  <textarea name="qualifications"></textarea>
+
+  <label>Tech Stack</label>
+  <textarea name="skills"></textarea>
+
+  <label>References</label>
+  <textarea name="references"></textarea>
+
+  <button type="submit">Generate Resume</button>
+</form>
+</body>
+</html>

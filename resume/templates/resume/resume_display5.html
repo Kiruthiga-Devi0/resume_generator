@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.full_name }} - Resume PDF</title>
+ <style>
+@page {size: A4;margin: 1.5cm;}
+body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;color: #111; }
+
+    .resume-container {
+        width: 80%;
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 30px 40px;
+        border-radius: 8px;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+    }
+
+    .download-btn {
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .download-btn:hover {
+        background: #333;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .header h1 {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .header p {
+        margin: 3px 0;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .columns {
+        display: flex;
+        gap: 40px;
+    }
+
+    .left-column, .right-column {
+        width: 50%;
+    }
+
+    .section {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .section h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 3px;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 4px;
+        font-size: 13.5px;
+        line-height: 1.6;
+    }
+    /* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  .resume-container {
+    width: 90%;
+    padding: 25px 30px;
+  }
+  .columns {
+    gap: 25px;
+  }
+  .header h1 {
+    font-size: 24px;
+  }
+  .section h2 {
+    font-size: 14px;
+  }
+  li {
+    font-size: 13px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 0;
+  }
+  .resume-container {
+    width: 95%;
+    padding: 20px;
+  }
+  .columns {
+    flex-direction: column; /* stack left and right */
+    gap: 20px;
+  }
+  .left-column, .right-column {
+    width: 100%;
+  }
+  .header h1 {
+    font-size: 22px;
+  }
+  .header p {
+    font-size: 12px;
+  }
+  .section h2 {
+    font-size: 13px;
+  }
+  li {
+    font-size: 12.5px;
+  }
+  .download-btn {
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px 0;
+  }
+  .resume-container {
+    width: 100%;
+    padding: 15px;
+    border-radius: 0;
+    box-shadow: none; /* simplify on mobile */
+  }
+  .top-bar {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .download-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .header p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .section h2 {
+    font-size: 12px;
+    padding-bottom: 2px;
+  }
+  li {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}
+
+</style>
+</head>
+<body>
+  <div class="resume-container">
+
+    <!-- Top-right Download Button -->
+    <div class="top-bar">
+      <a href="{% url 'download_resume_pdf5' resume.id %}" class="download-btn">Download PDF</a>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>{{ resume.full_name }}</h1>
+      <p>{{ resume.job_title }}</p>
+      <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
+    </div>
+
+    <div class="columns">
+      <!-- Left Column -->
+      <div class="left-column">
+
+          <!-- ✅ Profile Summary in Left Column -->
+          <div class="section">
+              <h2>Profile Summary</h2>
+              {% if profile_summary %}
+                <p>{{ profile_summary }}</p>
+              {% else %}
+                <p>No profile summary added</p>
+              {% endif %}
+          </div>
+
+          {% if experience_list %}
+          <div class="section">
+              <h2>Professional Experience</h2>
+              <ul>
+                  {% for item in experience_list %}
+                  <li>{{ item }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+
+          {% if education_list %}
+          <div class="section">
+              <h2>Education</h2>
+              <ul>
+                  {% for item in education_list %}
+                  <li>{{ item }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+      </div>
+
+      <!-- Right Column -->
+      <div class="right-column">
+          {% if qualifications_list %}
+          <div class="section">
+              <h2>Professional Qualifications</h2>
+              <ul>
+                  {% for item in qualifications_list %}
+                  <li>{{ item }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+
+          {% if skills_list %}
+          <div class="section">
+              <h2>Tech Stack</h2>
+              <ul>
+                  {% for skill in skills_list %}
+                  <li>{{ skill }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+
+          {% if references_list %}
+          <div class="section">
+              <h2>References</h2>
+              <ul>
+                  {% for item in references_list %}
+                  <li>{{ item }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+          {% endif %}
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

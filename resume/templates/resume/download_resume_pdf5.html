@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ resume.full_name }} - Resume PDF</title>
+<style>
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    .resume-container {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 20mm;
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .header h1 {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .header p {
+        margin: 3px 0;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .columns {
+        display: flex;
+        gap: 40px;
+    }
+
+    .left-column, .right-column {
+        width: 50%;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 3px;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 4px;
+        font-size: 13.5px;
+        line-height: 1.6;
+    }
+</style>
+</head>
+<body>
+    <div class="resume-container">
+
+        <!-- Header -->
+        <div class="header">
+            <h1>{{ resume.full_name }}</h1>
+            <p>{{ resume.job_title }}</p>
+            <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
+        </div>
+
+        <div class="columns">
+            <!-- Left Column: Profile Summary + Experience + Education -->
+            <div class="left-column">
+
+                <!-- ✅ Profile Summary now inside left column -->
+                <div class="section">
+                    <h2>Profile Summary</h2>
+                    {% if profile_summary %}
+                      <p>{{ profile_summary }}</p>
+                    {% else %}
+                      <p>No profile summary added</p>
+                    {% endif %}
+                </div>
+
+                {% if experience_list %}
+                <div class="section">
+                    <h2>Professional Experience</h2>
+                    <ul>
+                        {% for item in experience_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if education_list %}
+                <div class="section">
+                    <h2>Education</h2>
+                    <ul>
+                        {% for item in education_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right Column: Qualifications + Skills + References -->
+            <div class="right-column">
+                {% if qualifications_list %}
+                <div class="section">
+                    <h2>Professional Qualifications</h2>
+                    <ul>
+                        {% for item in qualifications_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if skills_list %}
+                <div class="section">
+                    <h2>Tech Stack</h2>
+                    <ul>
+                        {% for skill in skills_list %}
+                            <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if references_list %}
+                <div class="section">
+                    <h2>References</h2>
+                    <ul>
+                        {% for item in references_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

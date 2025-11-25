@@ -1,0 +1,579 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | MAKE YOUR RESUME</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #ebe8ef; color: #333; min-height: 100vh; overflow-x: hidden; }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed; top: 0; left: -260px; width: 250px; height: 100%;
+      background: #7b688b; color: #fff; padding: 30px 20px;
+      display: flex; flex-direction: column; align-items: center; transition: left 0.3s ease; z-index: 1000;
+    }
+    .sidebar.active { left: 0; }
+    .sidebar img { width: 100px; border-radius: 50%; margin-bottom: 15px; border: 3px solid #fff; }
+    .sidebar h2 { font-size: 1.3rem; margin-bottom: 5px; text-align: center; }
+    .sidebar p { font-size: 0.9rem; text-align: center; opacity: 0.8; margin-bottom: 20px; }
+    .sidebar nav ul { list-style: none; width: 100%; text-align: center; margin-bottom: auto; }
+    .sidebar nav ul li { margin: 12px 0; }
+    .sidebar nav ul li a { text-decoration: none; color: #fff; font-weight: 500; display: block; transition: color 0.3s; }
+    .sidebar nav ul li a:hover { color: #c7d2fe; }
+    .sidebar button { margin-top: auto; padding: 10px 20px; border: none; border-radius: 8px;
+      background: #fff; color: #5c3575; font-weight: 600; cursor: pointer; transition: 0.3s; }
+    .sidebar button:hover { background: #e0e0ff; }
+
+    /* Menu Button */
+    .menu-btn { position: fixed; top: 20px; left: 20px; width: 35px; height: 30px;
+      display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 1100; }
+    .menu-btn span { height: 4px; width: 100%; background: #6a3383; border-radius: 2px; transition: all 0.3s; }
+    .menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+    /* Main Content */
+    .main-content { padding: 60px 40px; transition: filter 0.3s ease; }
+    .main-content.dimmed { filter: blur(2px); }
+    .welcome { font-size: 1.8rem; font-weight: 600; margin-bottom: 25px; color: #603472; text-align: center; }
+
+    /* Template Section */
+    .template-section { margin-top: 40px; }
+    .template-section h2 { color: #4a2c6f; margin-bottom: 20px; text-align: center; }
+    
+    .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1100px; margin: 0 auto; }
+
+    /* Template / Resume Card */
+    .template-card {
+      background: #fff; border-radius: 12px; padding: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05); text-align: center; transition: 0.3s;
+    }
+    .template-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+    .template-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+    .template-card h3 { color: #603472; margin-bottom: 10px; }
+    .template-card p { font-size: 0.9rem; margin-bottom: 10px; }
+    .template-card button { padding: 8px 14px; border: none; border-radius: 6px; background: #5b297c;
+      color: #fff; cursor: pointer; transition: 0.3s; margin: 3px; }
+    .template-card button:hover { background: #3e1d5a; }
+
+    /* Overlay */
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: none; z-index: 900; }
+    .overlay.active { display: block; }
+
+    /* Resume Scorer Inputs */
+    #scoreForm input, #scoreForm textarea { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 8px; border: 1px solid #ccc; }
+    #scoreForm button { background: #5b297c; color: #fff; width: 100%; }
+    #scoreForm button:hover { background: #3e1d5a; }
+    .spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.progress-bar {
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.progress-fill {
+  height: 12px;
+  background: #5b297c;
+  transition: width 0.5s ease;
+}
+.score-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.report-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: 0.3s;
+}
+.report-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+}
+.report-icon {
+  width: 40px;
+  margin-bottom: 10px;
+}
+.report-score {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #5b297c;
+}
+.report-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.report-explanation {
+  font-size: 0.85rem;
+  color: #555;
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.dashboard-left, .dashboard-right {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.dashboard-left h2 {
+  margin-bottom: 15px;
+}
+
+.dashboard-left textarea {
+  width: 100%;
+  height: 120px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.dashboard-left button {
+  background-color: #5b297c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dashboard-left button:hover {
+  background-color: #4a2065;
+}
+#totalScoreBox {
+  background-color: #f5f0fa;
+  border-left: 6px solid #5b297c;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.file-upload {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.upload-label {
+  background-color: #5b297c;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: #4a2065;
+}
+
+#resumeFile {
+  display: none; /* hide native input */
+}
+
+#fileName {
+  font-size: 0.95rem;
+  color: #555;
+}
+/* ---------------- RESPONSIVE MEDIA QUERIES ---------------- */
+
+/* Large tablets and small laptops */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 50px 30px;
+  }
+  .template-grid {
+    gap: 20px;
+  }
+  .dashboard-grid {
+    gap: 20px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .main-content {
+    padding: 40px 25px;
+  }
+  .welcome {
+    font-size: 1.5rem;
+  }
+  .template-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* stack left and right */
+  }
+  .sidebar {
+    width: 220px;
+    padding: 25px 15px;
+  }
+  .sidebar img {
+    width: 80px;
+  }
+  .sidebar h2 {
+    font-size: 1.1rem;
+  }
+  .sidebar p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 30px 20px;
+  }
+  .welcome {
+    font-size: 1.3rem;
+  }
+  .template-card img {
+    height: 160px;
+  }
+  .template-card p {
+    font-size: 0.85rem;
+  }
+  .report-score {
+    font-size: 1.2rem;
+  }
+  .file-upload {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  .main-content {
+    padding: 20px 15px;
+  }
+  .welcome {
+    font-size: 1.1rem;
+  }
+  .template-grid {
+    grid-template-columns: 1fr; /* single column */
+    gap: 15px;
+  }
+  .template-card img {
+    height: 140px;
+  }
+  .template-card h3 {
+    font-size: 1rem;
+  }
+  .template-card p {
+    font-size: 0.8rem;
+  }
+  .sidebar {
+    width: 200px;
+    padding: 20px 12px;
+  }
+  .sidebar img {
+    width: 70px;
+  }
+  .sidebar h2 {
+    font-size: 1rem;
+  }
+  .sidebar p {
+    font-size: 0.75rem;
+  }
+  .menu-btn {
+    width: 30px;
+    height: 25px;
+    top: 15px;
+    left: 15px;
+  }
+  .menu-btn span {
+    height: 3px;
+  }
+  .dashboard-left textarea {
+    height: 100px;
+  }
+  .report-explanation {
+    font-size: 0.75rem;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Menu Button -->
+  <div class="menu-btn" id="menu-btn"><span></span><span></span><span></span></div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/user-male-circle.png" alt="Profile Picture">
+    <h2>{{ request.user.username }}</h2>
+    <p>{{ request.user.email }}</p>
+    <nav>
+      <ul>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'about' %}">About App</a></li>
+        <li><a href="{% url 'preferences' %}">Preferences</a></li>
+        <li><a href="{% url 'help' %}">Help</a></li>
+        <li><a href="{% url 'safety_tips' %}">Use Tips</a></li>
+        <li><a href="{% url 'complaint' %}">Report Complaint</a></li>
+        <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+        <li><a href="{% url 'terms' %}">Terms and Conditions</a></li>
+      </ul>
+    </nav>
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="main-content" id="main-content">
+    <!-- Welcome -->
+    <div class="welcome">Welcome back, {{ request.user.username }}!</div>
+
+    <!-- Choose Template Section -->
+    <div class="template-section">
+      <h2> Choose Your Resume Template</h2>
+      <div class="template-grid">
+        <div class="template-card">
+          <img src="{% static 'resume/templates/temp1.png' %}" alt="Template 1">
+          <h3>Classic Brown</h3>
+          <form method="get" action="{% url 'resume_form1' %}"><button type="submit">Use This Template</button></form>
+        </div>
+        <div class="template-card">
+          <img src="{% static 'resume/templates/temp2.png' %}" alt="Template 2">
+          <h3>Modern Elegant</h3>
+          <form method="get" action="{% url 'resume_form2' %}"><button type="submit">Use This Template</button></form>
+        </div>
+        <div class="template-card">
+          <img src="{% static 'resume/templates/temp3.png' %}" alt="Template 3">
+          <h3>Creative Beige</h3>
+          <form method="get" action="{% url 'resume_form3' %}"><button type="submit">Use This Template</button></form>
+        </div>
+        <div class="template-card">
+          <img src="{% static 'resume/templates/temp4.png' %}" alt="Template 4">
+          <h3>Minimal Style</h3>
+          <form method="get" action="{% url 'resume_form4' %}"><button type="submit">Use This Template</button></form>
+        </div>
+        <div class="template-card">
+          <img src="{% static 'resume/templates/temp5.png' %}" alt="Template 5">
+          <h3>Corporate Elegant</h3>
+          <form method="get" action="{% url 'resume_form5' %}"><button type="submit">Use This Template</button></form>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Resumes Section -->
+    <div class="template-section">
+      <h2>My Resumes</h2>
+      {% if resumes %}
+        <div class="template-grid">
+          {% for resume in resumes %}
+            <div class="template-card">
+              <h3>{{ resume.full_name }}</h3>
+              <p>{{ resume.job_title }}</p>
+              <p>
+                <a href="{% url 'resume_display' resume.type resume.id %}">
+                  <button>View</button>
+                </a>
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="text-align:center;">You have not created any resumes yet.</p>
+      {% endif %}
+    </div>
+<div class="dashboard-grid">
+ <div class="dashboard-left">
+  <h2>Upload Resume & Job Description</h2>
+
+  <!-- Styled file upload -->
+  <div class="file-upload">
+    <label for="resumeFile" class="upload-label">
+      <img src="https://img.icons8.com/ios-filled/24/ffffff/upload.png" />
+      Choose Resume File
+    </label>
+    <input type="file" id="resumeFile" />
+    <span id="fileName">No file chosen</span>
+  </div>
+
+  <!-- Job description textarea -->
+  <textarea id="jobDesc" placeholder="Paste job description here..."></textarea>
+
+  <!-- Submit button -->
+  <button onclick="scoreResume()">Score Resume</button>
+</div>
+
+
+  <!-- Right Column -->
+  <div class="dashboard-right">
+    <!-- Loader -->
+    <div id="loader" style="display:none; text-align:center;">
+      <img src="https://img.icons8.com/ios-filled/50/5b297c/refresh.png" class="spin-icon" />
+      <p>Scoring your resume...</p>
+    </div>
+
+
+   <!-- Full Report -->
+<div id="fullReport" style="display:none;">
+  <h3>Resume Evaluation Report</h3>
+  <div id="totalScoreBox"></div> <!-- ⬅️ New total score box -->
+  <div id="reportGrid"></div>
+</div>
+
+</div>
+
+
+</div>
+
+
+  </div>
+
+  <script>
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const mainContent = document.getElementById('main-content');
+
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    mainContent.classList.toggle('dimmed');
+  });
+
+  overlay.addEventListener('click', () => {
+    menuBtn.classList.remove('active');
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    mainContent.classList.remove('dimmed');
+  });
+
+function scoreResume() {
+  const resumeFile = document.getElementById("resumeFile").files[0];
+  const jobDesc = document.getElementById("jobDesc").value.trim();
+
+  if (!resumeFile || !jobDesc) {
+    alert("Please upload a resume and paste the job description.");
+    return;
+  }
+
+  let formData = new FormData();
+  formData.append("resume_file", resumeFile);
+  formData.append("job_description", jobDesc);
+
+  const csrfToken = '{{ csrf_token }}';
+
+  // Show loader
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("fullReport").style.display = "none";
+
+  fetch("/api/score/", {
+    method: "POST",
+    body: formData,
+    headers: { 'X-CSRFToken': csrfToken },
+    credentials: 'same-origin'
+  })
+  .then(res => res.json())
+  .then(data => {
+    // Hide loader
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("fullReport").style.display = "block";
+
+    // ✅ Total score box
+    document.getElementById("totalScoreBox").innerHTML = `
+      <span style="font-size:1.5rem; color:#5b297c;">Score: ${data.total}/100</span>
+      <span style="margin-left:15px; font-size:1rem; color:#666;">(${data.suggestions.length} issues found)</span>
+    `;
+
+    // ✅ Breakdown cards
+    const breakdown = data.breakdown;
+    const explanations = {
+      content_match: "How well your resume matches job keywords and skills.",
+      section_coverage: "Checks if key sections like Experience, Education, Skills are present.",
+      formatting: "Evaluates ATS-friendly formatting: email, phone, dates, bullets.",
+      readability: "Assesses clarity, sentence length, and clean layout."
+    };
+      const icons = {
+          content_match: "https://cdn-icons-png.flaticon.com/512/6633/6633536.png", // Content Match
+          section_coverage: "https://cdn-icons-png.flaticon.com/512/6633/6633297.png", // Section Coverage
+          formatting: "https://cdn-icons-png.flaticon.com/512/1277/1277223.png", // Formatting
+          readability: "https://img.icons8.com/color/48/000000/read.png" // Keep your existing readability icon
+    };
+
+    const grid = document.getElementById("reportGrid");
+    grid.innerHTML = "";
+
+    Object.keys(breakdown).forEach(key => {
+      const card = document.createElement("div");
+      card.className = "report-card";
+      card.innerHTML = `
+        <img src="${icons[key]}" class="report-icon" alt="${key}" />
+        <div class="report-label">${key.replace("_", " ").toUpperCase()}</div>
+        <div class="report-score">${breakdown[key]}%</div>
+        <p class="report-explanation">${explanations[key]}</p>
+      `;
+      grid.appendChild(card);
+    });
+
+    // ✅ Suggestions box
+    const suggestionsBox = document.createElement("div");
+    suggestionsBox.className = "report-card";
+    suggestionsBox.innerHTML = `
+      <img src="https://img.icons8.com/color/48/000000/tips.png" class="report-icon" />
+      <div class="report-label">Suggestions</div>
+      <ul style="text-align:left;">${data.suggestions.map(s => `<li>${s}</li>`).join("")}</ul>
+    `;
+    grid.appendChild(suggestionsBox);
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("loader").style.display = "none";
+    alert("Error scoring resume. Make sure your API is running.");
+  });
+}
+
+// ✅ Show filename when file is chosen
+document.getElementById("resumeFile").addEventListener("change", function () {
+  const fileName = this.files[0]?.name || "No file chosen";
+  document.getElementById("fileName").textContent = fileName;
+});
+
+
+
+</script>
+
+</body>
+</html>

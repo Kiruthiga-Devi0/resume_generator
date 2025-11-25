@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report a Complaint | Make Your Resume</title>
+  <style>
+    :root {
+      --primary: #6c3aad;
+      --text: #333;
+      --bg: #f6f5fa;
+      --card: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #beb6c5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    main {
+      background:#cabdce;
+      width: 100%;
+      max-width: 550px;
+      padding: 30px 25px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    header img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      color: var(--primary);
+      letter-spacing: 0.5px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 6px rgba(108, 58, 173, 0.3);
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #582f8b;
+    }
+
+    #response {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Responsive Styles ---------- */
+    @media (max-width: 600px) {
+      main {
+        padding: 20px 18px;
+        border-radius: 12px;
+      }
+
+      header img {
+        width: 55px;
+        height: 55px;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      textarea {
+        min-height: 130px;
+        font-size: 0.95rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+
+      #response {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      main {
+        padding: 18px 15px;
+      }
+
+      header img {
+        width: 45px;
+        height: 45px;
+      }
+
+      header h1 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img src="{% static 'resume/logoo.png' %}" alt="App Logo">
+      <h1>Report a Complaint</h1>
+    </header>
+
+    <form id="complaintForm" method="POST">
+      {% csrf_token %}
+      <textarea name="complaint" id="complaint" placeholder="Please describe your issue or concern..."></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <div id="response"></div>
+  </main>
+
+  <script>
+    document.getElementById('complaintForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const responseDiv = document.getElementById('response');
+
+      const res = await fetch("{% url 'complaint' %}", {
+        method: "POST",
+        body: formData,
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        responseDiv.innerHTML = "✅ Thank you! We’ll get back to you soon.";
+        responseDiv.style.color = "green";
+        document.getElementById('complaint').value = "";
+      } else {
+        responseDiv.innerHTML = "⚠️ " + (data.error || "Something went wrong.");
+        responseDiv.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>

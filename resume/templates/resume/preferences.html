@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Job Roles</title>
+  <style>
+    /* --- Styles unchanged --- */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #beb6c5;
+  margin: 0;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  background: #cabdce;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  width: 95%; 
+  margin: auto;
+}
+
+.panel {
+  flex: 1;
+  background: #d5cbe4;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 22px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #e4dfdf;
+  margin: 0;
+}
+
+li {
+  padding: 12px 18px;
+  margin: 6px 0;
+  border-radius: 8px; 
+  background: #d4c5ec;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  font-size: 15px;
+}
+
+li:hover {
+  background: #e8f0fe;
+  transform: scale(1.01);
+}
+
+button.save {
+  background: #7b677c;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 25px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.1s;
+}
+
+button.save:hover {
+  background: #84488b;
+  transform: scale(1.02);
+}
+
+.symbol {
+  font-weight: bold;
+  color: #06080a;
+  font-size: 20px;
+  user-select: none;
+}
+
+ul::-webkit-scrollbar {
+  width: 8px;
+}
+ul::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Large tablets and small laptops */
+@media (max-width: 992px) {
+  .container {
+    gap: 25px;
+    padding: 30px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  li {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+/* Tablets & small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* stack panels */
+    gap: 20px;
+    padding: 25px;
+  }
+  .panel {
+    padding: 20px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  button.save {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 20px;
+  }
+  .container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .panel {
+    padding: 15px;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  li {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+  button.save {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+  .symbol {
+    font-size: 18px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="container">
+      <!-- Available Roles -->
+      <div class="panel">
+        <h2>Available Roles</h2>
+        <ul id="available-list">
+          {% for role in all_roles %}
+            {% if role not in selected_roles %}
+              <li data-id="{{ role.id }}">
+                {{ role.name }}
+                <span class="symbol">+</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Selected Roles -->
+    <div class="panel">
+    <h2>Your Selected Roles</h2>
+    <ul id="selected-list">
+      {% for role in selected_roles %}
+        <li data-id="{{ role.id }}">
+          {{ role.name }}
+          <span class="symbol" style="color:red;">−</span>
+          <input type="hidden" name="selected_roles[]" value="{{ role.id }}">
+        </li>
+      {% endfor %}
+    </ul>
+    <button class="save" type="submit"> Save Roles</button>
+</div>
+
+
+  <script>
+    const availableList = document.getElementById('available-list');
+    const selectedList = document.getElementById('selected-list');
+
+    // Move role from available to selected
+    availableList.addEventListener('click', e => {
+      const item = e.target.closest('li');
+      if (!item) return;
+
+      const id = item.dataset.id;
+      const name = item.firstChild.textContent.trim();
+      item.remove();
+
+      const newItem = document.createElement('li');
+      newItem.dataset.id = id;
+      newItem.innerHTML = `${name} <span class="symbol" style="color:red;">−</span>
+        <input type="hidden" name="selected_roles[]" value="${id}">`;
+      selectedList.appendChild(newItem);
+    });
+
+    // Move role from selected back to available
+    selectedList.addEventListener('click', e => {
+      const item = e.target.closest('li');
+      if (!item) return;
+
+      const id = item.dataset.id;
+      const name = item.firstChild.textContent.trim();
+      item.remove();
+
+      const newItem = document.createElement('li');
+      newItem.dataset.id = id;
+      newItem.innerHTML = `${name} <span class="symbol">+</span>`;
+      availableList.appendChild(newItem);
+    });
+  </script>
+</body>
+</html>

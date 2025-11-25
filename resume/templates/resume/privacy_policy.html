@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | MAKE YOUR RESUME</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background-color: #beb6c5;
+      color: #333;
+      line-height: 1.7;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: #cabdce;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 1.9rem;
+      color: #78398b;
+      margin-bottom: 5px;
+    }
+    header p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    section h2 {
+      color: #8432a5;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      border-left: 4px solid #5e2470;
+      padding-left: 10px;
+    }
+    section p {
+      font-size: 1rem;
+      color: #444;
+      text-align: justify;
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    @media (max-width: 1024px) {
+      .container {
+        padding: 30px 25px;
+      }
+      header img {
+        width: 70px;
+      }
+      header h1 {
+        font-size: 1.6rem;
+      }
+      section h2 {
+        font-size: 1.15rem;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      .container {
+        padding: 25px 18px;
+      }
+      header img {
+        width: 65px;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+      section h2 {
+        font-size: 1.05rem;
+      }
+      section p {
+        font-size: 0.95rem;
+      }
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 20px 15px;
+        border-radius: 8px;
+      }
+      header img {
+        width: 55px;
+      }
+      header h1 {
+        font-size: 1.3rem;
+      }
+      header p {
+        font-size: 0.85rem;
+      }
+      section h2 {
+        font-size: 1rem;
+      }
+      section p {
+        font-size: 0.9rem;
+      }
+      footer {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="{% static 'resume/logoo.png' %}" alt="App Logo">
+      <h1>MAKE YOUR RESUME</h1>
+      <p>Version 1.0 | Privacy Policy</p>
+    </header>
+    <section id="overview">
+      <h2>1. Overview</h2>
+      <p>
+        This Privacy Policy outlines how MAKE YOUR RESUME collects, uses, and protects your information. 
+        By using our services, you agree to the practices described below.
+      </p>
+    </section>
+    <section id="collection">
+      <h2>2. Collection of Information</h2>
+      <p>
+        We collect personal information such as your name, email, and resume details to help you generate personalized resumes.
+        Additionally, we may gather technical information like device type and browser to improve user experience.
+      </p>
+    </section>
+    <section id="retention">
+      <h2>3. Retention of Information</h2>
+      <p>
+        Your data is retained only as long as necessary to provide services or meet legal requirements. 
+        Once no longer required, it is securely deleted.
+      </p>
+    </section>
+    <section id="sharing">
+      <h2>4. Sharing of Information</h2>
+      <p>
+        We never sell your information. However, limited data may be shared with trusted third parties for service improvement under strict confidentiality.
+      </p>
+    </section>
+    <section id="editing">
+      <h2>5. Editing Information</h2>
+      <p>
+        You can edit or delete your data anytime through your profile or by contacting our support team.
+      </p>
+    </section>
+    <section id="downloading">
+      <h2>6. Downloading Information</h2>
+      <p>
+        Users can download a copy of their resume and related data for transparency and record-keeping.
+      </p>
+    </section>
+    <section id="communication">
+      <h2>7. Communication Policy</h2>
+      <p>
+        We may send service updates or promotional messages. You can opt out of non-essential communications anytime.
+      </p>
+    </section>
+    <section id="guarantees">
+      <h2>8. No Guarantees</h2>
+      <p>
+        While we use advanced security practices, no online system is completely secure. 
+        MAKE YOUR RESUME cannot guarantee absolute protection against breaches.
+      </p>
+    </section>
+    <section id="changes">
+      <h2>9. Changes to the Privacy Policy</h2>
+      <p>
+        This policy may be updated periodically. Users will be notified of any major changes through the app or email.
+      </p>
+    </section>
+    <footer>
+      &copy; 2025 MAKE YOUR RESUME. All Rights Reserved.
+    </footer>
+  </div>
+</body>
+</html>

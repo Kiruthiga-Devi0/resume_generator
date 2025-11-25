@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAKE YOUR RESUME</title>
+  <link rel="stylesheet" href="{% static 'resume/frontpage.css' %}">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #beb6c5; color: #333; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: rgba(154, 130, 155, 0.9);
+      color: #fff;
+      flex-wrap: wrap;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header .logo img {
+      height: 60px;
+      object-fit: contain;
+    }
+    header nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    header nav a:hover { text-decoration: underline; }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px;
+      background:rgba(120, 101, 121, 0.9) ;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    .hero .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .hero .btn-group a {
+      background-color: #fff;
+      color: #524e5a;
+      padding: 12px 30px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .hero .btn-group a:hover { background-color: #e6e6e6; }
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+    }
+    .feature-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      flex: 1 1 250px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: #564561;
+      font-size: 20px;
+    }
+    .feature-card p { font-size: 14px; color: #555; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #8c7c8d;
+      color: #fff;
+      font-size: 14px;
+    }
+    @media (max-width: 1200px) {
+      .hero h1 { font-size: 42px; }
+      .hero p { font-size: 16px; }
+      .feature-card { flex: 1 1 45%; }
+    }
+    @media (max-width: 992px) {
+      header { padding: 20px 30px; }
+      .hero h1 { font-size: 38px; }
+      .hero p { font-size: 16px; max-width: 500px; }
+      .feature-card { flex: 1 1 48%; padding: 25px; }
+    }
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: center; gap: 15px; }
+      header nav { gap: 10px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 15px; max-width: 90%; }
+      .feature-card { flex: 1 1 100%; padding: 20px; }
+      .hero .btn-group { gap: 10px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 14px; }
+      header .logo { font-size: 20px; gap: 8px; }
+      header .logo img { height: 50px; }
+      header nav a { font-size: 14px; }
+      .feature-card { padding: 15px; }
+      .hero .btn-group a { padding: 10px 20px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <div class="logo">
+    <img src="{% static 'resume/logoo.png' %}" alt="Logo">
+    MAKE YOUR RESUME
+  </div>
+  <nav>
+    <a href="{% url 'landing_page' %}">Home</a>
+    <a href="#features">Features</a>
+    <a href="{% url 'generate_resume' %}">Create Resume</a>
+    <a href="{% url 'login' %}">Login</a>
+  </nav>
+</header>
+  <section class="hero">
+    <h1>MAKE YOUR RESUME</h1>
+    <p>AI-powered Resume Builder & Resume Scorer – Professional, Fast, and ATS-Friendly</p>
+    <div class="btn-group">
+      <a href="{% url 'generate_resume' %}">Create Resume</a>
+      <a href="#features">Learn More</a>
+    </div>
+  </section>
+  <section class="features" id="features">
+    <div class="feature-card">
+      <h3>Multiple Templates</h3>
+      <p>Choose from modern, classic, or professional resume templates.</p>
+    </div>
+    <div class="feature-card">
+      <h3>One-Click PDF</h3>
+      <p>Download resumes in high-quality, print-ready PDF format.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Resume Scorer</h3>
+      <p>Get AI-powered scores based on your skills and preferences.</p>
+    </div>
+    <div class="feature-card">
+      <h3>AI Summary & Tips</h3>
+      <p>Generate professional summaries and improve your resume instantly.</p>
+    </div>
+  </section>
+  <footer>
+    &copy; 2025 MAKE YOUR RESUME | All Rights Reserved
+  </footer>
+</body>
+</html>

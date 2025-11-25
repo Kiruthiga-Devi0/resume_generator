@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safety Tips | Make Your Resume</title>
+  <style>
+    :root {
+  --primary: #7c4d8f;
+  --text: #333;
+  --bg: #f9fafc;
+  --card: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #beb6c5;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #cabdce;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.title-section img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.title-section h1 {
+  color: var(--primary);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+p {
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+footer {
+  background: #76438a;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  color: #f3eaea;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #fff;
+  margin: 0 10px;
+}
+
+/* ====== RESPONSIVE BREAKPOINTS ====== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  main {
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+    margin: 15px;
+  }
+  .title-section img {
+    width: 65px;
+    height: 65px;
+  }
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  main {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+  }
+  .title-section img {
+    width: 55px;
+    height: 55px;
+  }
+  .title-section h1 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 0.9rem;
+    text-align: left; /* better readability on narrow screens */
+  }
+  footer {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <main>
+      <div class="title-section">
+        <img src="{% static 'resume/logoo.png' %}" alt="App Logo" />
+        <h1>Safety Tips</h1>
+      </div>
+      <p>
+        At <strong>Make Your Resume</strong>, your safety and privacy are our top priorities. We encourage users to stay informed and aware while using the platform. Avoid sharing sensitive information such as passwords or financial details with anyone claiming to represent us outside the official site. Always verify that you are using our authentic web address before entering personal details.
+      </p>
+      <p>
+        Your resume may contain personal data; ensure that you download and share it only with trusted employers or verified job platforms. We recommend keeping your account secure with a strong password and signing out after each session, especially on shared devices. 
+      </p>
+      <p>
+        Our platform uses secure data encryption and complies with privacy standards, but your vigilance plays a vital role in maintaining your digital safety. Stay cautious of fraudulent offers or messages that seem suspicious, and report any misuse immediately. Together, we can build a safer professional environment for all users.
+      </p>
+    </main>
+    <footer>
+      &copy; {{ now|date:"Y" }} Make Your Resume |
+      <a href="{% url 'about' %}">About</a> |
+      <a href="{% url 'terms' %}">Terms & Conditions</a> |
+      <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+    </footer>
+  </div>
+</body>
+</html>

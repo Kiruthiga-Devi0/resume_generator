@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Resume Generator</title>
+  <style>
+  /* General body styling */
+body {
+    font-family: 'Inter', 'Helvetica', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for forms and resume */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/* Inputs and textareas */
+input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Button */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Resume specific styling */
+.resume-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.resume-header h1 {
+    font-size: 36px;
+}
+
+.resume-section {
+    margin-bottom: 25px;
+}
+
+.resume-section h2 {
+    font-size: 22px;
+    color: #007bff;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.resume-section p, .resume-section li {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Two-column layout for contact and education */
+.two-columns {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.two-columns .column {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Lists styling */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* ---------------- RESPONSIVE MEDIA QUERIES ---------------- */
+
+/* Tablets (portrait and landscape) */
+@media (max-width: 992px) {
+    .container {
+        padding: 25px;
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .two-columns {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    input, textarea, select, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .resume-header h1 {
+        font-size: 28px;
+    }
+
+    .two-columns {
+        flex-direction: column;
+    }
+}
+
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>AI Resume Generator & Resume Scorer</h2>
+<form method="POST" action="{% url 'generate_resume' %}">
+     {% csrf_token %}
+      <input type="text" name="Full_name" placeholder="Full Name" required><br>
+      <input type="text" name="job_pref" placeholder="Job Preference"><br>
+      <input type="email" name="email" placeholder="Email"><br>
+      <input type="text" name="phone" placeholder="Phone"><br>
+      <input type="text" name="city" placeholder="City"><br>
+      <textarea name="summary" placeholder="Summary"></textarea><br>
+      <input type="text" name="college_name" placeholder="College Name"><br>
+      <input type="text" name="degree" placeholder="Degree"><br>
+      <input type="text" name="cgpa" placeholder="CGPA"><br>
+      <input type="text" name="school_10" placeholder="10th School"><br>
+      <input type="text" name="year_10" placeholder="10th Year"><br>
+      <input type="text" name="percentage_10" placeholder="10th %"><br>
+      <input type="text" name="school_12" placeholder="12th School"><br>
+      <input type="text" name="year_12" placeholder="12th Year"><br>
+      <input type="text" name="percentage_12" placeholder="12th %"><br>
+      <textarea name="skills" placeholder="Skills (comma separated)"></textarea><br>
+      <textarea name="languages" placeholder="Languages (comma separated)"></textarea><br>
+      <textarea name="certificates" placeholder="Certificates (comma separated)"></textarea><br>
+      <textarea name="projects" placeholder="Projects (comma separated)"></textarea><br>
+      <textarea name="accomplishments" placeholder="Accomplishments (comma separated)"></textarea><br>
+      <textarea name="experience" placeholder="Experience"></textarea><br>
+<label for="template_type">Choose Resume Template:</label><br>
+<select name="template_type" id="template_type" required>
+  <option value="modern" {% if template_type == "modern" %}selected{% endif %}>Modern Professional</option>
+  <option value="minimal" {% if template_type == "minimal" %}selected{% endif %}>Minimal Elegant</option>
+  <option value="corporate" {% if template_type == "corporate" %}selected{% endif %}>Corporate Two-Column</option>
+  <option value="creative" {% if template_type == "creative" %}selected{% endif %}>Creative Gradient</option>
+  <option value="classic" {% if template_type == "classic" %}selected{% endif %}>Classic Black & White</option>
+</select>
+<br><br>
+      <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <button type="submit">Generate Resume</button>
+</form>
+
+    </form>
+  </div>
+</body>
+</html>

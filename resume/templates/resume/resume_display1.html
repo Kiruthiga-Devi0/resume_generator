@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ resume.full_name }} - Resume</title>
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f5f0;
+  color: #2f1e13;
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  margin: 40px auto;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.left {
+  width: 35%;
+  background: #5a3e2b;
+  color: white;
+  padding: 30px;
+}
+
+.right {
+  width: 65%;
+  padding: 30px;
+}
+
+h1 { font-size: 28px; margin-bottom: 10px; }
+h2 { color: #5a3e2b; border-bottom: 2px solid #d2b48c; margin-top: 20px; }
+p { margin: 5px 0; }
+
+.skill-box, .edu-box, .exp-box { margin-bottom: 15px; }
+
+button {
+  background: #5a3e2b;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+ul {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+li {
+  margin-bottom: 5px;
+}
+.h2 { color: #f8f5f0; }
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  .container {
+    width: 90%;
+  }
+  h1 { font-size: 24px; }
+  h2 { font-size: 1.2rem; }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* stack left and right */
+    width: 95%;
+  }
+  .left, .right {
+    width: 100%;
+    padding: 20px;
+  }
+  h1 { font-size: 22px; }
+  h2 { font-size: 1.1rem; }
+  button { width: 100%; padding: 12px; }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  .container {
+    margin: 20px auto;
+    width: 100%;
+    box-shadow: none;
+  }
+  .left, .right {
+    padding: 15px;
+  }
+  h1 { font-size: 20px; }
+  h2 { font-size: 1rem; }
+  p, li { font-size: 0.9rem; }
+  button {
+    font-size: 0.9rem;
+    padding: 10px;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left">
+    <h1>{{ resume.full_name }}</h1>
+    <h3>{{ resume.job_title }}</h3>
+    <p><strong>Email:</strong> {{ resume.email }}</p>
+    <p><strong>Phone:</strong> {{ resume.phone }}</p>
+    <p><strong>Address:</strong> {{ resume.address }}</p>
+  </div>
+
+  <div class="right">
+    <h2>Skills</h2>
+    {% if skills_list %}
+      <ul>
+        {% for skill in skills_list %}
+          <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No skills added</p>
+    {% endif %}
+
+    <h2>Languages</h2>
+    {% if languages_list %}
+      <ul>
+        {% for lang in languages_list %}
+          <li>{{ lang }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No languages added</p>
+    {% endif %}
+
+    <h2>References</h2>
+    {% if references_list %}
+      <ul>
+        {% for ref in references_list %}
+          <li>{{ ref }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No references added</p>
+    {% endif %}
+
+    <h2>Profile Summary</h2>
+    {% if resume.profile_summary %}
+      <p>{{ resume.profile_summary|linebreaksbr }}</p>
+    {% else %}
+      <p>No profile summary added</p>
+    {% endif %}
+<h2>Work Experience</h2>
+{% if experience_list %}
+  <ul>
+    {% for exp in experience_list %}
+      <li>{{ exp }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No work experience added</p>
+{% endif %}
+
+<h2>Education</h2>
+{% if education_list %}
+  <ul>
+    {% for edu in education_list %}
+      <li>{{ edu }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No education details added</p>
+{% endif %}
+
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+  <a href="{% url 'download_resume_pdf1' resume.id %}"><button>Download PDF</button></a>
+</div>
+</body>
+</html>

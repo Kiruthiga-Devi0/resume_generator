@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.full_name }} - Resume</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 0;
+    }
+
+    /* Download button above resume */
+    .download-container {
+      width: 900px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+    }
+
+    .download {
+      background: #fdd835;
+      color: #000;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .download:hover {
+      background: #e6c200;
+    }
+
+    /* Resume container */
+    .resume-wrapper {
+      width: 900px;
+      background: #fff;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* Left Sidebar */
+    .left {
+      width: 35%;
+      background: #000;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .left img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fdd835;
+      object-fit: cover;
+    }
+
+    .name {
+      color: #fdd835;
+      font-size: 24px;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .job {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .contact h3 {
+      color: #fdd835;
+      font-size: 16px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .contact p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Right Content */
+    .right {
+      width: 65%;
+      padding: 40px 40px;
+    }
+
+    .section-title {
+      color: #000;
+      font-weight: 700;
+      border-bottom: 2px solid #fdd835;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-top: 25px;
+      padding-bottom: 3px;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 25px;
+      margin: 10px 0 20px 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+      font-size: 15px;
+      color: #333;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 1000px) {
+      .resume-wrapper {
+        flex-direction: column;
+        width: 90%;
+      }
+      .left, .right {
+        width: 100%;
+        text-align: left;
+      }
+      .download-container {
+        width: 90%;
+      }
+    }
+    @media (max-width: 1000px) {
+  .resume-wrapper {
+    flex-direction: column; /* stack left and right */
+    width: 90%;
+  }
+  .left, .right {
+    width: 100%;
+    text-align: left;
+    padding: 25px;
+  }
+  .download-container {
+    width: 90%;
+  }
+  .left img {
+    width: 120px;
+    height: 120px;
+  }
+  .name {
+    font-size: 22px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 0;
+  }
+  .resume-wrapper {
+    width: 95%;
+  }
+  .left, .right {
+    padding: 20px;
+  }
+  .left img {
+    width: 100px;
+    height: 100px;
+  }
+  .name {
+    font-size: 20px;
+  }
+  .job {
+    font-size: 14px;
+  }
+  .section-title {
+    font-size: 1.1rem;
+  }
+  li, p {
+    font-size: 14px;
+  }
+  .download {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px 0;
+  }
+  .resume-wrapper {
+    width: 100%;
+    box-shadow: none; /* simplify on mobile */
+    border-radius: 0;
+  }
+  .left, .right {
+    padding: 15px;
+    text-align: center;
+  }
+  .left img {
+    width: 80px;
+    height: 80px;
+  }
+  .name {
+    font-size: 18px;
+  }
+  .job {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+  li, p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .download-container {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .download {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="download-container">
+    <a href="{% url 'download_resume_pdf2' resume.id %}" class="download">Download PDF</a>
+  </div>
+
+  <div class="resume-wrapper">
+    <div class="left">
+      {% if resume.profile_photo %}
+        <img src="{{ resume.profile_photo.url }}" alt="Profile Photo">
+      {% endif %}
+      <div class="name">{{ resume.full_name }}</div>
+      <div class="job">{{ resume.job_title }}</div>
+      <div class="contact">
+        <h3>Contact</h3>
+        <p>{{ resume.phone }}<br>{{ resume.email }}</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <h3 class="section-title">About Me</h3>
+      <p>{{ resume.about_me }}</p>
+
+     <h3 class="section-title">Experience</h3>
+<ul>
+  {% if experience_list %}
+    {% for exp in experience_list %}
+      <li>{{ exp }}</li>
+    {% endfor %}
+  {% else %}
+    <li>No experience added</li>
+  {% endif %}
+</ul>
+
+<h3 class="section-title">Skills</h3>
+<ul>
+  {% if skills_list %}
+    {% for skill in skills_list %}
+      <li>{{ skill }}</li>
+    {% endfor %}
+  {% else %}
+    <li>No skills added</li>
+  {% endif %}
+</ul>
+
+<h3 class="section-title">Education</h3>
+<ul>
+  {% if education_list %}
+    {% for edu in education_list %}
+      <li>{{ edu }}</li>
+    {% endfor %}
+  {% else %}
+    <li>No education details added</li>
+  {% endif %}
+</ul>
+    </div>
+  </div>
+
+</body>
+</html>
