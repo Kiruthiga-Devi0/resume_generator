@@ -30,7 +30,6 @@
     overflow: hidden;
   }
 
-  /* LEFT PANEL */
   .left {
     width: 35%;
     background: #000;
@@ -74,7 +73,7 @@
     margin: 0;
   }
 
-  /* RIGHT PANEL */
+
   .right {
     width: 65%;
     padding: 35px 30px;
@@ -116,7 +115,7 @@
 <body>
 
   <div class="resume-container">
-    <!-- LEFT -->
+   
     <div class="left">
       {% if resume.profile_photo %}
         <img src="{{ resume.profile_photo.url }}" alt="Profile Photo" class="profile-pic">
@@ -130,7 +129,7 @@
       </div>
     </div>
 
-    <!-- RIGHT -->
+   
     <div class="right">
       <h3 class="section-title">About Me</h3>
       <p>{{ resume.about_me }}</p>

@@ -3,7 +3,6 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 urlpatterns = [
-path('admin/', admin.site.urls),
 path('', views.landing_page, name='landing_page'),
 path('home/', views.front_page, name='front_page'), 
 path('form/', views.resume_form, name='generate_resume'),

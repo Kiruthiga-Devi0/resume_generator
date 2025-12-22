@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <title>{{ resume.full_name }} - Resume</title>
 <style>
-  /* ---- PAGE: A4 with comfortable margins ---- */
+ 
   @page {
     size: A4;
-    /* top right bottom left */
+    
     margin: 20mm 20mm 20mm 20mm;
   }
 
-  /* Reset */
+
   html, body {
     margin: 0;
     padding: 0;
@@ -24,27 +24,20 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /*
-    Printable width calculation:
-    A4 width = 210mm
-    left+right page margins = 20mm + 20mm = 40mm
-    printable area width = 210 - 40 = 170mm
-    We set wrapper to a little less so it's comfortably centered (160mm).
-  */
-  /* ---- CENTERING CONTAINER ---- */
+ 
   body > .page {
-    /* Make this element fill the page's content area */
-    min-height: calc(297mm - 40mm); /* A4 height 297mm minus top+bottom margins */
+    
+    min-height: calc(297mm - 40mm); 
     display: flex;
-    align-items: center;           /* vertical center */
-    justify-content: center;       /* horizontal center */
+    align-items: center;           
+    justify-content: center;      
     padding: 0;
     box-sizing: border-box;
   }
 
-  /* The visual resume card centered inside the printable box */
+ 
   .wrapper {
-    width: 160mm;               /* narrower than printable area (170mm) */
+    width: 160mm;               
     max-width: 100%;
     background: #fff;
     box-shadow: none;
@@ -52,14 +45,14 @@
     box-sizing: border-box;
   }
 
-  /* Layout table fills wrapper */
+
   table.layout {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
   }
 
-  /* Panel paddings inside the wrapper (keeps text away from edges) */
+ 
   td.left {
     width: 34%;
     background: #5a3e2b;
@@ -77,7 +70,7 @@
     box-sizing: border-box;
   }
 
-  /* Typography */
+
   h1 { font-size: 26px; margin: 0 0 8px 0; line-height:1.15; }
   h3 { font-size: 14px; font-weight: normal; margin: 0 0 12px 0; }
   h2 {
@@ -92,11 +85,7 @@
   ul { margin: 6px 0 12px 18px; padding: 0; }
   li { margin-bottom: 4px; }
 
-  /* Visual debug border while editing: uncomment if you want to see the wrapper edges in browser.
-     (Remove or comment out for final PDF.) */
-  /* .wrapper { border: 1px solid #e6e6e6; } */
-
-  /* Print safeguard */
+ 
   @media print {
     body > .page { min-height: calc(297mm - 40mm); }
     td.left, td.right { padding: 10mm; }
@@ -108,7 +97,7 @@
   <div class="wrapper" role="main">
     <table class="layout" role="presentation">
       <tr>
-        <!-- LEFT PANEL -->
+      
         <td class="left">
           <h1>{{ resume.full_name }}</h1>
           {% if resume.job_title %}<h3>{{ resume.job_title }}</h3>{% endif %}
@@ -117,7 +106,7 @@
           <p><strong>Address:</strong> {{ resume.address }}</p>
         </td>
 
-        <!-- RIGHT PANEL -->
+        
         <td class="right">
           <h2>Skills</h2>
           {% if skills_list %}

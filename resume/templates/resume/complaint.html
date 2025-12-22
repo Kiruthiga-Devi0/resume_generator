@@ -107,7 +107,7 @@
       font-size: 0.95rem;
     }
 
-    /* ---------- Responsive Styles ---------- */
+    
     @media (max-width: 600px) {
       main {
         padding: 20px 18px;
@@ -185,7 +185,7 @@
       const data = await res.json();
 
       if (data.success) {
-        responseDiv.innerHTML = "✅ Thank you! We’ll get back to you soon.";
+        responseDiv.innerHTML = " Thank you! We’ll get back to you soon.";
         responseDiv.style.color = "green";
         document.getElementById('complaint').value = "";
       } else {

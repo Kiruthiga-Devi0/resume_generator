@@ -159,8 +159,6 @@ def resume_form1(request):
         skills = request.POST.get('skills')
         languages = request.POST.get('languages')
         references = request.POST.get('references')
-
-        # Experience and Education as plain text
         experience = request.POST.get('experience',"")
         education = request.POST.get('education',"")
 
@@ -276,11 +274,11 @@ def resume_form2(request):
 def resume_display2(request, resume_id):
     resume = get_object_or_404(Resume2, id=resume_id)
 
-    # Create clean lists splitting on commas and line breaks
+    
     def to_list(text):
         if not text:
             return []
-        # normalize CRLF and replace commas with newline, then splitlines
+    
         items = []
         for item in text.replace('\r', '').replace(',', '\n').splitlines():
             item = item.strip()
@@ -303,10 +301,10 @@ def resume_display2(request, resume_id):
 
 
 def download_resume_pdf2(request, resume_id):
-    # Fetch the resume object
+   
     resume = get_object_or_404(Resume2, id=resume_id)
 
-    # Split the text fields by commas or line breaks
+
     experience_list = []
     if resume.work_experience:
         for exp in resume.work_experience.replace('\r', '').split(','):
@@ -328,7 +326,6 @@ def download_resume_pdf2(request, resume_id):
             if edu:
                 education_list.append(edu)
 
-    # Load your clean styled template
     template_path = 'resume/download_resume_pdf2.html'
 
     context = {
@@ -338,14 +335,14 @@ def download_resume_pdf2(request, resume_id):
         'education_list': education_list,
     }
 
-    # Render HTML content
+
     template = get_template(template_path)
     html_content = template.render(context)
 
-    # Generate PDF using WeasyPrint
+   
     pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
 
-    # Send as downloadable file
+  
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{resume.full_name}_Resume.pdf"'
 
@@ -389,7 +386,7 @@ def resume_display3(request, resume_id):
 def download_resume_pdf3(request, resume_id):
     resume = get_object_or_404(Resume3, id=resume_id)
 
-    # Helper to split text into list
+  
     def split_text(text):
         if not text:
             return []
@@ -411,14 +408,12 @@ def download_resume_pdf3(request, resume_id):
         'references_list': references_list,
     }
 
-    # Render HTML to string
     template = get_template(template_path)
     html_content = template.render(context)
 
-    # Generate PDF using WeasyPrint (returns bytes directly)
+   
     pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri('/')).write_pdf()
 
-    # Return as downloadable response
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{resume.full_name}_resume.pdf"'
     return response
@@ -427,7 +422,7 @@ def resume_form4(request):
     if request.method == 'POST':
         data = {field: request.POST.get(field, '') for field in [
             'full_name', 'job_title', 'address', 'email', 'website', 'phone',
-            'profile_summary',   # ✅ added
+            'profile_summary',  
             'technical_skills', 'projects', 'education', 'work_experience', 'achievements'
         ]}
         resume = Resume4.objects.create(user=request.user, **data) 
@@ -444,7 +439,7 @@ def resume_display4(request, resume_id):
 
     context = {
         'resume': resume,
-        'profile_summary': resume.profile_summary,   # ✅ added
+        'profile_summary': resume.profile_summary, 
         'technical_skills': split_field(resume.technical_skills),
         'projects': split_field(resume.projects),
         'experience_list': split_field(resume.work_experience),
@@ -463,7 +458,7 @@ def download_resume_pdf4(request, resume_id):
 
     context = {
         'resume': resume,
-        'profile_summary': resume.profile_summary,   # ✅ added
+        'profile_summary': resume.profile_summary,   
         'technical_skills': split_field(resume.technical_skills),
         'projects': split_field(resume.projects),
         'experience_list': split_field(resume.work_experience),
@@ -494,7 +489,7 @@ def resume_form5(request):
             references=request.POST.get('references'),
             user=request.user
         )
-        # ✅ Redirect to display page
+      
         return redirect('resume_display5', resume_id=resume.id)
 
     return render(request, 'resume/resume_form5.html')
@@ -534,7 +529,7 @@ def download_resume_pdf5(request, resume_id):
 
     html_string = render_to_string('resume/download_resume_pdf5.html', {
         'resume': resume,
-        'profile_summary': resume.profile_summary,  # ✅ added
+        'profile_summary': resume.profile_summary,  
         'experience_list': experience_list,
         'education_list': education_list,
         'qualifications_list': qualifications_list,
@@ -551,14 +546,13 @@ def download_resume_pdf5(request, resume_id):
 def my_resumes(request):
     user = request.user
 
-    # Fetch resumes for the logged-in user from each model
     resumes1 = Resume1.objects.filter(user=user.username)
     resumes2 = Resume2.objects.filter(user=user.username)
     resumes3 = Resume3.objects.filter(user=user.username)
     resumes4 = Resume4.objects.filter(user=user.username)
     resumes5 = Resume5.objects.filter(user=user.username)
 
-    # Organize by template for easier display
+
     all_resumes = {
         "Template 1": resumes1,
         "Template 2": resumes2,
@@ -588,10 +582,9 @@ def dashboard(request):
         print("Found Resume5:", r.full_name)
         resumes.append({'id': r.id, 'full_name': r.full_name, 'job_title': r.job_title, 'type': 'Resume5'})
 
-    print("✅ Total resumes found:", len(resumes))
+    print(" Total resumes found:", len(resumes))
 
     return render(request, 'resume/dashboard.html', {'resumes': resumes})
-
 @login_required
 def resume_display(request, resume_type, resume_id):
     model_map = {
@@ -609,20 +602,16 @@ def resume_display(request, resume_type, resume_id):
         if not value:
             return []
         return [item.strip() for item in value.replace('\r', '').replace(',', '\n').splitlines() if item.strip()]
-
     context = {
         "resume": resume,
-
-        # Plain text lists
         "skills_list": split_field(getattr(resume, "skills", "")),
         "languages_list": split_field(getattr(resume, "languages", "")),
         "references_list": split_field(getattr(resume, "references", "")),
         "qualifications_list": split_field(getattr(resume, "qualifications", "")),
         "projects": split_field(getattr(resume, "projects", "")),
         "achievements_list": split_field(getattr(resume, "achievements", "")),
-        "experience_list": split_field(getattr(resume, "work_experience", "")),  # ✅ plain text
-        "education_list": split_field(getattr(resume, "education", "")),        # ✅ plain text
-        "profile_summary": getattr(resume, "profile_summary", ""),              # ✅ include summary if present
+        "experience_list": split_field(getattr(resume, "work_experience", "")), 
+        "education_list": split_field(getattr(resume, "education", "")),       
+        "profile_summary": getattr(resume, "profile_summary", ""),              
     }
-
     return render(request, f"resume/resume_display{resume_type[-1]}.html", context)

@@ -14,7 +14,7 @@
         h1 {
             text-align: center;
             color: #222;
-            font-size: clamp(1.2rem, 2.5vw, 2rem); /* fluid scaling */
+            font-size: clamp(1.2rem, 2.5vw, 2rem); 
         }
 
         form {
@@ -24,7 +24,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             max-width: 800px;
             margin: auto;
-            width: 100%; /* ✅ always full width of container */
+            width: 100%; 
             box-sizing: border-box;
         }
 
@@ -58,10 +58,6 @@
         button:hover {
             background: #555;
         }
-
-        /* ===== RESPONSIVE BREAKPOINTS ===== */
-
-        /* Large tablets / small laptops */
         @media (max-width: 1024px) {
             body {
                 padding: 15px;
@@ -72,7 +68,6 @@
             }
         }
 
-        /* Tablets */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -89,7 +84,6 @@
             }
         }
 
-        /* Mobile phones */
         @media (max-width: 480px) {
             body {
                 padding: 0;
@@ -99,7 +93,7 @@
                 max-width: 100%;
                 margin: 0;
                 padding: 15px;
-                border-radius: 0; /* ✅ full-bleed look */
+                border-radius: 0;
             }
             h1 {
                 font-size: 1.2rem;

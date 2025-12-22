@@ -10,7 +10,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body { background: #ebe8ef; color: #333; min-height: 100vh; overflow-x: hidden; }
 
-    /* Sidebar */
+  
     .sidebar {
       position: fixed; top: 0; left: -260px; width: 250px; height: 100%;
       background: #7b688b; color: #fff; padding: 30px 20px;
@@ -28,7 +28,7 @@
       background: #fff; color: #5c3575; font-weight: 600; cursor: pointer; transition: 0.3s; }
     .sidebar button:hover { background: #e0e0ff; }
 
-    /* Menu Button */
+  
     .menu-btn { position: fixed; top: 20px; left: 20px; width: 35px; height: 30px;
       display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 1100; }
     .menu-btn span { height: 4px; width: 100%; background: #6a3383; border-radius: 2px; transition: all 0.3s; }
@@ -36,18 +36,18 @@
     .menu-btn.active span:nth-child(2) { opacity: 0; }
     .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-    /* Main Content */
+    
     .main-content { padding: 60px 40px; transition: filter 0.3s ease; }
     .main-content.dimmed { filter: blur(2px); }
     .welcome { font-size: 1.8rem; font-weight: 600; margin-bottom: 25px; color: #603472; text-align: center; }
 
-    /* Template Section */
+   
     .template-section { margin-top: 40px; }
     .template-section h2 { color: #4a2c6f; margin-bottom: 20px; text-align: center; }
     
     .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1100px; margin: 0 auto; }
 
-    /* Template / Resume Card */
+ 
     .template-card {
       background: #fff; border-radius: 12px; padding: 15px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.05); text-align: center; transition: 0.3s;
@@ -60,11 +60,10 @@
       color: #fff; cursor: pointer; transition: 0.3s; margin: 3px; }
     .template-card button:hover { background: #3e1d5a; }
 
-    /* Overlay */
+  
     .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: none; z-index: 900; }
     .overlay.active { display: block; }
 
-    /* Resume Scorer Inputs */
     #scoreForm input, #scoreForm textarea { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 8px; border: 1px solid #ccc; }
     #scoreForm button { background: #5b297c; color: #fff; width: 100%; }
     #scoreForm button:hover { background: #3e1d5a; }
@@ -197,16 +196,14 @@
 }
 
 #resumeFile {
-  display: none; /* hide native input */
+  display: none;
 }
 
 #fileName {
   font-size: 0.95rem;
   color: #555;
 }
-/* ---------------- RESPONSIVE MEDIA QUERIES ---------------- */
 
-/* Large tablets and small laptops */
 @media (max-width: 1200px) {
   .main-content {
     padding: 50px 30px;
@@ -219,7 +216,7 @@
   }
 }
 
-/* Tablets */
+
 @media (max-width: 992px) {
   .main-content {
     padding: 40px 25px;
@@ -231,7 +228,7 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
   .dashboard-grid {
-    grid-template-columns: 1fr; /* stack left and right */
+    grid-template-columns: 1fr; 
   }
   .sidebar {
     width: 220px;
@@ -248,7 +245,6 @@
   }
 }
 
-/* Small tablets & large phones */
 @media (max-width: 768px) {
   .main-content {
     padding: 30px 20px;
@@ -272,7 +268,7 @@
   }
 }
 
-/* Mobile phones */
+
 @media (max-width: 480px) {
   body {
     padding: 10px;
@@ -284,7 +280,7 @@
     font-size: 1.1rem;
   }
   .template-grid {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr;
     gap: 15px;
   }
   .template-card img {
@@ -330,10 +326,10 @@
   </style>
 </head>
 <body>
-  <!-- Menu Button -->
+ 
   <div class="menu-btn" id="menu-btn"><span></span><span></span><span></span></div>
 
-  <!-- Sidebar -->
+ 
   <div class="sidebar" id="sidebar">
     <img src="https://img.icons8.com/ios-filled/100/ffffff/user-male-circle.png" alt="Profile Picture">
     <h2>{{ request.user.username }}</h2>
@@ -359,42 +355,42 @@
   <div class="overlay" id="overlay"></div>
 
   <div class="main-content" id="main-content">
-    <!-- Welcome -->
+  
     <div class="welcome">Welcome back, {{ request.user.username }}!</div>
 
-    <!-- Choose Template Section -->
+  
     <div class="template-section">
       <h2> Choose Your Resume Template</h2>
       <div class="template-grid">
         <div class="template-card">
-          <img src="{% static 'resume/templates/temp1.png' %}" alt="Template 1">
+          <img src="{% static 'resume/temp1.png' %}" alt="Template 1">
           <h3>Classic Brown</h3>
           <form method="get" action="{% url 'resume_form1' %}"><button type="submit">Use This Template</button></form>
         </div>
         <div class="template-card">
-          <img src="{% static 'resume/templates/temp2.png' %}" alt="Template 2">
+          <img src="{% static 'resume/temp2.png' %}" alt="Template 2">
           <h3>Modern Elegant</h3>
           <form method="get" action="{% url 'resume_form2' %}"><button type="submit">Use This Template</button></form>
         </div>
         <div class="template-card">
-          <img src="{% static 'resume/templates/temp3.png' %}" alt="Template 3">
+          <img src="{% static 'resume/temp3.png' %}" alt="Template 3">
           <h3>Creative Beige</h3>
           <form method="get" action="{% url 'resume_form3' %}"><button type="submit">Use This Template</button></form>
         </div>
         <div class="template-card">
-          <img src="{% static 'resume/templates/temp4.png' %}" alt="Template 4">
+          <img src="{% static 'resume/temp4.png' %}" alt="Template 4">
           <h3>Minimal Style</h3>
           <form method="get" action="{% url 'resume_form4' %}"><button type="submit">Use This Template</button></form>
         </div>
         <div class="template-card">
-          <img src="{% static 'resume/templates/temp5.png' %}" alt="Template 5">
+          <img src="{% static 'resume/temp5.png' %}" alt="Template 5">
           <h3>Corporate Elegant</h3>
           <form method="get" action="{% url 'resume_form5' %}"><button type="submit">Use This Template</button></form>
         </div>
       </div>
     </div>
 
-    <!-- My Resumes Section -->
+
     <div class="template-section">
       <h2>My Resumes</h2>
       {% if resumes %}
@@ -419,7 +415,6 @@
  <div class="dashboard-left">
   <h2>Upload Resume & Job Description</h2>
 
-  <!-- Styled file upload -->
   <div class="file-upload">
     <label for="resumeFile" class="upload-label">
       <img src="https://img.icons8.com/ios-filled/24/ffffff/upload.png" />
@@ -429,27 +424,26 @@
     <span id="fileName">No file chosen</span>
   </div>
 
-  <!-- Job description textarea -->
   <textarea id="jobDesc" placeholder="Paste job description here..."></textarea>
 
-  <!-- Submit button -->
+
   <button onclick="scoreResume()">Score Resume</button>
 </div>
 
 
-  <!-- Right Column -->
+
   <div class="dashboard-right">
-    <!-- Loader -->
+    
     <div id="loader" style="display:none; text-align:center;">
       <img src="https://img.icons8.com/ios-filled/50/5b297c/refresh.png" class="spin-icon" />
       <p>Scoring your resume...</p>
     </div>
 
 
-   <!-- Full Report -->
+  
 <div id="fullReport" style="display:none;">
   <h3>Resume Evaluation Report</h3>
-  <div id="totalScoreBox"></div> <!-- ⬅️ New total score box -->
+  <div id="totalScoreBox"></div> 
   <div id="reportGrid"></div>
 </div>
 
@@ -496,7 +490,7 @@ function scoreResume() {
 
   const csrfToken = '{{ csrf_token }}';
 
-  // Show loader
+  
   document.getElementById("loader").style.display = "block";
   document.getElementById("fullReport").style.display = "none";
 
@@ -508,17 +502,17 @@ function scoreResume() {
   })
   .then(res => res.json())
   .then(data => {
-    // Hide loader
+ 
     document.getElementById("loader").style.display = "none";
     document.getElementById("fullReport").style.display = "block";
 
-    // ✅ Total score box
+  
     document.getElementById("totalScoreBox").innerHTML = `
       <span style="font-size:1.5rem; color:#5b297c;">Score: ${data.total}/100</span>
       <span style="margin-left:15px; font-size:1rem; color:#666;">(${data.suggestions.length} issues found)</span>
     `;
 
-    // ✅ Breakdown cards
+ 
     const breakdown = data.breakdown;
     const explanations = {
       content_match: "How well your resume matches job keywords and skills.",
@@ -527,10 +521,10 @@ function scoreResume() {
       readability: "Assesses clarity, sentence length, and clean layout."
     };
       const icons = {
-          content_match: "https://cdn-icons-png.flaticon.com/512/6633/6633536.png", // Content Match
-          section_coverage: "https://cdn-icons-png.flaticon.com/512/6633/6633297.png", // Section Coverage
-          formatting: "https://cdn-icons-png.flaticon.com/512/1277/1277223.png", // Formatting
-          readability: "https://img.icons8.com/color/48/000000/read.png" // Keep your existing readability icon
+          content_match: "https://cdn-icons-png.flaticon.com/512/6633/6633536.png", 
+          section_coverage: "https://cdn-icons-png.flaticon.com/512/6633/6633297.png", 
+          formatting: "https://cdn-icons-png.flaticon.com/512/1277/1277223.png", 
+          readability: "https://img.icons8.com/color/48/000000/read.png" 
     };
 
     const grid = document.getElementById("reportGrid");
@@ -548,7 +542,7 @@ function scoreResume() {
       grid.appendChild(card);
     });
 
-    // ✅ Suggestions box
+  
     const suggestionsBox = document.createElement("div");
     suggestionsBox.className = "report-card";
     suggestionsBox.innerHTML = `
@@ -565,7 +559,7 @@ function scoreResume() {
   });
 }
 
-// ✅ Show filename when file is chosen
+
 document.getElementById("resumeFile").addEventListener("change", function () {
   const fileName = this.files[0]?.name || "No file chosen";
   document.getElementById("fileName").textContent = fileName;

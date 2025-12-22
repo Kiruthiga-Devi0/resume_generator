@@ -17,16 +17,16 @@
       background: #fff;
       padding: 30px 40px;
       border-radius: 10px;
-      width: 100%;              /* ✅ fluid width */
-      max-width: 750px;         /* ✅ cap on large screens */
+      width: 100%;             
+      max-width: 750px;         
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      box-sizing: border-box;   /* ✅ include padding in width */
+      box-sizing: border-box;  
     }
 
     h2 {
       text-align: center;
       margin-bottom: 25px;
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem); /* ✅ fluid scaling */
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem); 
     }
 
     label {
@@ -74,9 +74,7 @@
       background: #333;
     }
 
-    /* ===== RESPONSIVE BREAKPOINTS ===== */
-
-    /* Large tablets / small laptops */
+  
     @media (max-width: 1024px) {
       body {
         padding: 20px;
@@ -87,7 +85,7 @@
       }
     }
 
-    /* Tablets */
+    
     @media (max-width: 768px) {
       body {
         padding: 15px;
@@ -104,7 +102,7 @@
       }
     }
 
-    /* Mobile phones */
+   
     @media (max-width: 480px) {
       body {
         padding: 0;
@@ -114,7 +112,7 @@
         max-width: 100%;
         margin: 0;
         padding: 15px;
-        border-radius: 0; /* ✅ full-bleed look */
+        border-radius: 0;
       }
       h2 {
         font-size: 1.2rem;

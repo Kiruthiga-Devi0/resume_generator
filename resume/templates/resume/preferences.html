@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Select Job Roles</title>
   <style>
-    /* --- Styles unchanged --- */
+   
 body {
   font-family: 'Poppins', sans-serif;
   background: #beb6c5;
@@ -105,9 +105,7 @@ ul::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 
-/* Large tablets and small laptops */
 @media (max-width: 992px) {
   .container {
     gap: 25px;
@@ -122,10 +120,10 @@ ul::-webkit-scrollbar-thumb {
   }
 }
 
-/* Tablets & small screens */
+
 @media (max-width: 768px) {
   .container {
-    flex-direction: column; /* stack panels */
+    flex-direction: column;
     gap: 20px;
     padding: 25px;
   }
@@ -141,7 +139,7 @@ ul::-webkit-scrollbar-thumb {
   }
 }
 
-/* Mobile phones */
+
 @media (max-width: 480px) {
   body {
     padding: 20px;
@@ -176,7 +174,7 @@ ul::-webkit-scrollbar-thumb {
   <form method="POST">
     {% csrf_token %}
     <div class="container">
-      <!-- Available Roles -->
+     
       <div class="panel">
         <h2>Available Roles</h2>
         <ul id="available-list">
@@ -191,7 +189,7 @@ ul::-webkit-scrollbar-thumb {
         </ul>
       </div>
 
-      <!-- Selected Roles -->
+   
     <div class="panel">
     <h2>Your Selected Roles</h2>
     <ul id="selected-list">
@@ -211,7 +209,7 @@ ul::-webkit-scrollbar-thumb {
     const availableList = document.getElementById('available-list');
     const selectedList = document.getElementById('selected-list');
 
-    // Move role from available to selected
+  
     availableList.addEventListener('click', e => {
       const item = e.target.closest('li');
       if (!item) return;
@@ -227,7 +225,6 @@ ul::-webkit-scrollbar-thumb {
       selectedList.appendChild(newItem);
     });
 
-    // Move role from selected back to available
     selectedList.addEventListener('click', e => {
       const item = e.target.closest('li');
       if (!item) return;

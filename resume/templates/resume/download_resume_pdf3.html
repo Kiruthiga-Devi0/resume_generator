@@ -26,7 +26,7 @@
     background: #e0d7c6;
     vertical-align: top;
     padding: 40px 25px;
-    text-align: center; /* ✅ fixed alignment */
+    text-align: center; 
   }
   td.right-panel {
     width: 65%;
@@ -70,7 +70,7 @@
   <tr>
     <td class="left-panel">
       {% if resume.profile_image %}
-        <!-- ✅ use relative URL, works with base_url in view -->
+        
         <img src="{{ resume.profile_image.url }}" class="profile-pic" alt="Profile Picture">
       {% endif %}
       <div class="name">{{ resume.full_name }}</div>

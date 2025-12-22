@@ -88,9 +88,7 @@ body {
   background: #555;
 }
 
-/* ===== RESPONSIVE BREAKPOINTS ===== */
 
-/* Large tablets / small laptops */
 @media (max-width: 1024px) {
   .resume-container {
     width: 90%;
@@ -104,7 +102,6 @@ body {
   }
 }
 
-/* Tablets */
 @media (max-width: 768px) {
   body {
     padding: 20px 0;
@@ -131,7 +128,7 @@ body {
   }
 }
 
-/* Mobile phones */
+
 @media (max-width: 480px) {
   body {
     padding: 10px 0;
@@ -140,7 +137,7 @@ body {
     width: 100%;
     padding: 15px;
     border-radius: 0;
-    box-shadow: none; /* simplify on mobile */
+    box-shadow: none;
   }
   .header h1 {
     font-size: 20px;
@@ -165,7 +162,7 @@ body {
 </head>
 <body>
   <div style="width: 750px; position: relative; margin: 0 auto;">
-    <!-- Download Button Top-Right -->
+    
     <div style="position: absolute; top: 0; right: 0;">
       <a href="{% url 'download_resume_pdf4' resume.id %}" 
          style="background: #333; color: #fff; text-decoration: none; padding: 8px 18px; border-radius: 5px; transition: background 0.3s ease;">
@@ -173,16 +170,16 @@ body {
       </a>
     </div>
 
-    <!-- Resume Container -->
+  
     <div class="resume-container" style="margin-top: 40px;">
-      <!-- Header -->
+    
       <div class="header">
         <h1>{{ resume.full_name }}</h1>
         <p>{{ resume.job_title }}</p>
         <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
       </div>
 
-      <!-- ✅ Profile Summary -->
+     
       <div class="section">
         <h2>Profile Summary</h2>
         {% if profile_summary %}
@@ -192,7 +189,6 @@ body {
         {% endif %}
       </div>
 
-      <!-- Technical Skills -->
       {% if technical_skills %}
       <div class="section">
         <h2>Technical Skills</h2>
@@ -204,7 +200,7 @@ body {
       </div>
       {% endif %}
 
-      <!-- Projects -->
+   
       {% if projects %}
       <div class="section">
         <h2>Projects</h2>
@@ -216,7 +212,7 @@ body {
       </div>
       {% endif %}
 
-      <!-- Experience -->
+  
       <div class="section">
         <h2>Experience</h2>
         {% if experience_list %}
@@ -230,7 +226,7 @@ body {
 {% endif %}
 
 
-      <!-- Education -->
+     
      
       <div class="section">
         <h2>Education</h2>
@@ -244,7 +240,7 @@ body {
   <p>No education added</p>
 {% endif %}
 
-      <!-- ✅ Awards & Achievements -->
+    
       <div class="section">
         <h2>Awards & Achievements</h2>
         {% if achievements_list %}

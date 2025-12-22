@@ -21,7 +21,7 @@
             overflow: hidden;
         }
 
-        /* LEFT PANEL */
+      
         .left-panel {
             background-color: #e0d7c6;
             width: 35%;
@@ -69,7 +69,6 @@
             width: 80%;
         }
 
-        /* RIGHT PANEL */
         .right-panel {
             width: 65%;
             padding: 40px;
@@ -98,7 +97,7 @@
             padding-left: 10px;
         }
 
-        /* SKILLS */
+    
         .skills {
             display: flex;
             flex-wrap: wrap;
@@ -113,7 +112,7 @@
             font-size: 13px;
         }
 
-        /* DOWNLOAD BUTTON */
+      
         .download-btn {
             display: block;
             width: fit-content;
@@ -128,9 +127,7 @@
         .download-btn:hover {
             background: #91683e;
         }
-        /* ===== RESPONSIVE BREAKPOINTS ===== */
-
-/* Large tablets / small laptops */
+        
 @media (max-width: 1024px) {
   .resume-wrapper {
     max-width: 90%;
@@ -147,10 +144,10 @@
   }
 }
 
-/* Tablets */
+
 @media (max-width: 768px) {
   .resume-wrapper {
-    flex-direction: column; /* stack left and right */
+    flex-direction: column; 
     max-width: 95%;
   }
   .left-panel, .right-panel {
@@ -188,7 +185,7 @@
   }
 }
 
-/* Mobile phones */
+
 @media (max-width: 480px) {
   body {
     padding: 10px;
@@ -196,7 +193,7 @@
   .resume-wrapper {
     width: 100%;
     margin: 20px auto;
-    box-shadow: none; /* simplify on mobile */
+    box-shadow: none;
     border-radius: 0;
   }
   .left-panel, .right-panel {
@@ -238,7 +235,7 @@
 <body>
 
 <div class="resume-wrapper">
-    <!-- LEFT PANEL -->
+   
     <div class="left-panel">
         {% if resume.profile_image %}
             <img src="{{ resume.profile_image.url }}" class="profile-pic" alt="Profile Picture">
@@ -253,7 +250,7 @@
         </div>
     </div>
 
-    <!-- RIGHT PANEL -->
+  
     <div class="right-panel">
         <div class="section">
             <h2>About</h2>

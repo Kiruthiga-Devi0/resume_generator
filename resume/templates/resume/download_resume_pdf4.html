@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>{{ resume.full_name }} - Resume PDF</title>
   <style>
-    /* PDF page setup */
+   
     @page {
       size: A4;
       margin: 1.2cm;
@@ -91,14 +91,14 @@
 </head>
 <body>
   <div class="resume-container">
-    <!-- Header -->
+
     <div class="header">
       <h1>{{ resume.full_name }}</h1>
       <p>{{ resume.job_title }}</p>
       <p>{{ resume.address }} | {{ resume.email }} | {{ resume.website }} | {{ resume.phone }}</p>
     </div>
 
-    <!-- ✅ Profile Summary -->
+   
     <div class="section">
       <h2>Profile Summary</h2>
       {% if profile_summary %}
@@ -108,7 +108,7 @@
       {% endif %}
     </div>
 
-<!-- Technical Skills -->
+
 {% if technical_skills %}
 <div class="section">
   <h2>Technical Skills</h2>
@@ -120,7 +120,7 @@
 </div>
 {% endif %}
 
-<!-- Projects -->
+
 {% if projects %}
 <div class="section">
   <h2>Projects</h2>

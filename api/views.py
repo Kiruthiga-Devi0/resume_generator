@@ -41,7 +41,6 @@ class ResumeFileScoreView(APIView):
             suggestions.append("Add a professional email address.")
         if not breakdown.details["formatting"]["has_phone"]:
             suggestions.append("Add a phone number.")
-
         return Response({
             "total": breakdown.total,
             "breakdown": {
@@ -54,14 +53,12 @@ class ResumeFileScoreView(APIView):
             "details": breakdown.details,
         }, status=status.HTTP_200_OK)
 from scorer.services import ResumeScorer
-
 class ResumeFileScoreView(APIView):
     def post(self, request):
         resume_file = request.FILES.get("resume_file")
         job_description = request.data.get("job_description", "")
-
-        resume_text = extract_text(resume_file)  # your existing parser
+        resume_text = extract_text(resume_file) 
         scorer = ResumeScorer()
         result = scorer.score(resume_text, job_description)
-
         return Response(result)
+

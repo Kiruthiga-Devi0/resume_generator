@@ -84,9 +84,7 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
         font-size: 13.5px;
         line-height: 1.6;
     }
-    /* ===== RESPONSIVE BREAKPOINTS ===== */
-
-/* Large tablets / small laptops */
+   
 @media (max-width: 1024px) {
   .resume-container {
     width: 90%;
@@ -106,7 +104,7 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
   }
 }
 
-/* Tablets */
+
 @media (max-width: 768px) {
   body {
     padding: 20px 0;
@@ -116,7 +114,7 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
     padding: 20px;
   }
   .columns {
-    flex-direction: column; /* stack left and right */
+    flex-direction: column;
     gap: 20px;
   }
   .left-column, .right-column {
@@ -140,7 +138,6 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
   }
 }
 
-/* Mobile phones */
 @media (max-width: 480px) {
   body {
     padding: 10px 0;
@@ -149,7 +146,7 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
     width: 100%;
     padding: 15px;
     border-radius: 0;
-    box-shadow: none; /* simplify on mobile */
+    box-shadow: none; 
   }
   .top-bar {
     justify-content: center;
@@ -181,12 +178,11 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
 <body>
   <div class="resume-container">
 
-    <!-- Top-right Download Button -->
     <div class="top-bar">
       <a href="{% url 'download_resume_pdf5' resume.id %}" class="download-btn">Download PDF</a>
     </div>
 
-    <!-- Header -->
+   
     <div class="header">
       <h1>{{ resume.full_name }}</h1>
       <p>{{ resume.job_title }}</p>
@@ -194,10 +190,10 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
     </div>
 
     <div class="columns">
-      <!-- Left Column -->
+    
       <div class="left-column">
 
-          <!-- ✅ Profile Summary in Left Column -->
+
           <div class="section">
               <h2>Profile Summary</h2>
               {% if profile_summary %}
@@ -230,7 +226,7 @@ body { font-family: 'Poppins', sans-serif;margin: 0;padding: 0;background: #fff;
           {% endif %}
       </div>
 
-      <!-- Right Column -->
+     
       <div class="right-column">
           {% if qualifications_list %}
           <div class="section">
